@@ -20,7 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+//        maven("https://navercorp.bintray.com/maps") // 네이버 지도 저장소
     }
 }
 

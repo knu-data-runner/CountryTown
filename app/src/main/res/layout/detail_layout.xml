@@ -5,58 +5,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:id="@+id/login_layout"
         android:layout_width="match_parent"
-        android:layout_height = "match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/main_toolbar"/>
-
-
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity ="center"
+            android:fillViewport="true"
+            android:layout_marginTop="0dp"
+            android:padding="15dp" >
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_marginTop="20dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:text="체험마을A" />
-            <TextView
-                android:id="@+id/addr"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:textSize="25sp"
-                android:lineSpacingMultiplier="1.3"
-                android:text="주소: 강원도 춘천시 가나다라마바사아자차카타파아" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/map"
-                android:layout_width="match_parent"
-                android:layout_height="370dp"
-                android:textSize="100sp"
-                android:textStyle="bold"
-                android:text="지도위치" />
+                <TextView
+                    android:id="@+id/town_title"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:textSize="40dp"
+                    android:textStyle="bold"
+                    android:text="강화군 체험마을A" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_marginTop="20dp"
-                android:layout_width="120dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center_horizontal"
+                <TextView
+                    android:id="@+id/program_description"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:lineSpacingMultiplier="1.3"
+                    android:text="[프로그램타입] 프로그램명" />
 
+                <TextView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="370dp"
+                    android:textSize="80dp"
+                    android:textStyle="bold"
+                    android:text="지도위치" />
+
+                <TextView
+                    android:id="@+id/map2"
+                    android:layout_width="match_parent"
+                    android:layout_height="370dp"
+                    android:text="지도위치"
+                    android:textSize="80dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/addr"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:lineSpacingMultiplier="1.3"
+                    android:text="주소: 강원도 춘천시 가나다라마바사아자차카타파아" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight=".70"
+                        android:text="031-000-0000"
+                        android:gravity="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="23dp" />
+
+                    <Button
+                        android:id="@+id/call_button"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_weight=".30"
+                        android:layout_gravity="right"
+                        android:text="전화" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        <Button
+            android:id="@+id/registration_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="예약" />
-
-
-        </LinearLayout>
-
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
