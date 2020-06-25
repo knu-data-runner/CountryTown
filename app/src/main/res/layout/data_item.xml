@@ -34,6 +34,7 @@
             android:gravity="left"
             android:singleLine="true"
             />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

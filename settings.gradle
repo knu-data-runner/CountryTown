@@ -1,2 +1,2 @@
-rootProject.name='data_runner_app'
+rootProject.name='test'
 include ':app'
