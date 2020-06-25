@@ -4,39 +4,55 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
-class DataAdapter(val context: Context, val dataList: ArrayList<Data>) : BaseAdapter() {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+class DataAdapter(
+    val context: Context,               // MainActivity
+    val dataList: ArrayList<Data>,      // Data 객체 list
+    val itemClick: (Data) -> Unit)      // Data 객체 클릭시 실행되는 lambda 식
+    : RecyclerView.Adapter<DataAdapter.Holder>() {
+
+    /**
+     * 각 Data 객체를 감싸는 Holder
+     * bind 가 자동 호출되며 데이터가 매핑된다.
+     * @author jungwoo
+     */
+    inner class Holder(itemView: View, itemClick: (Data) -> Unit) :
+        RecyclerView.ViewHolder(itemView) {
+        val dataSido = itemView.findViewById<TextView>(R.id.sido)
+        val dataTitle = itemView.findViewById<TextView>(R.id.title)
+
+        fun bind (data: Data, context: Context) {
+            dataSido.text = data.sido
+            dataTitle.text = data.title
+            itemView.setOnClickListener { itemClick(data) }
+        }
+    }
+
+    /**
+     * 화면을 최초로 로딩하여 만들어진 View 가 없는 경우, xml 파일을 inflate 하여 ViewHolder 생성
+     * @author jungwoo
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         /* LayoutInflater는 item을 Adapter에서 사용할 View로 부풀려주는(inflate) 역할을 한다. */
-        val view: View = LayoutInflater.from(context).inflate(R.layout.data_item, null)
-
-        /* 위에서 생성된 view를 res-layout-main_lv_item.xml 파일의 각 View와 연결하는 과정이다. */
-        val dataTitle = view.findViewById<TextView>(R.id.title)
-        val dataSido = view.findViewById<TextView>(R.id.sido)
-//        val noticeDate = view.findViewById<TextView>(R.id.date)
-//        val noticeAuthor = view.findViewById<TextView>(R.id.author)
-
-        /* ArrayList<Dog>의 변수 dog의 이미지와 데이터를 ImageView와 TextView에 담는다. */
-        val data = dataList[position]
-        dataTitle.text = data.title
-        dataSido.text = data.sido
-//        noticeDate.text = notice.date
-//        noticeAuthor.text = notice.author
-
-        return view
+        val view: View = LayoutInflater.from(context).inflate(R.layout.data_item, parent, false)
+        return Holder(view, itemClick)
     }
 
-    override fun getItem(position: Int): Any {
-        return dataList[position]
+    /**
+     * onCreateViewHolder 에서 만든 view 와 실제 입력되는 각각의 데이터 연결
+     * @author jungwoo
+     */
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bind(dataList[position], context)
     }
 
-    override fun getItemId(position: Int): Long {
-        return 0
-    }
-
-    override fun getCount(): Int {
+    /**
+     * RecyclerView 로 만들어지는 item 의 총 개수 반환
+     * @author jungwoo
+     */
+    override fun getItemCount(): Int {
         return dataList.size
     }
 }

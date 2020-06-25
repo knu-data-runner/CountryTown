@@ -1,3 +1,17 @@
 package com.DataRunner.CountryTown
 
-class Data(val title: String, var sido: String, val addr: String, var master: String, var number: String, var link:String)
+class Data(
+    val title: String,
+    val sido: String,
+    val sigungu: String,
+    val programType: String,
+    val programContent: String,
+    val addr: String,
+    val master: String,
+    val number: String,
+    val link: String,
+    val manage: String,
+    val lat: Double,
+    val lon: Double,
+    val dataVersion: String
+)
