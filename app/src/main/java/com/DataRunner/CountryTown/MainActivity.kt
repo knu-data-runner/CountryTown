@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         parsing()
     }
 
-    fun parsing() {
+    private fun parsing(checkSido : String) {
         val dataAdapter = DataAdapter(this, dataList) { data ->
             val toDetailIntent = Intent(this, Detail::class.java)
             toDetailIntent.putExtra("title", data.title)
@@ -77,6 +77,13 @@ class MainActivity : AppCompatActivity() {
                     title, sido, sigungu, programType, programContent, addr, master, number, link, manage, lat, lon, dataVersion
                 )
                 dataList.add(listLine)
+
+                if(sido==checkSido || checkSido=="전체") {
+                    val listLine = Data(
+                        title, sido, sigungu, programType, programContent, addr, master, number, link, manage, lat, lon, dataVersion
+                    )
+                    dataList.add(listLine)
+                }
             }
         } catch (e: Exception) {
             val listLine = Data(e.toString(), "오류","오류", "오류", "오류", "오류", "오류", "오류", "오류", "오류", 0.0, 0.0,  "오류")
