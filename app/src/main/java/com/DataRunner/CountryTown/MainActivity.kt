@@ -1,18 +1,16 @@
-package com.example.test
+package com.DataRunner.CountryTown
 
 import android.os.Bundle
 import android.os.StrictMode
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.example.jsonapp.data
-import com.example.jsonapp.dataAdapter
-
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.main_toolbar.*
 import org.json.JSONArray
 
 class MainActivity : AppCompatActivity() {
+
     var dataList = arrayListOf<data>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

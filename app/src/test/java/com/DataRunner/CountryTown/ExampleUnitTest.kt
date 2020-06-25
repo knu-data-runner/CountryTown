@@ -1,4 +1,4 @@
-package com.example.test
+package com.DataRunner.CountryTown
 
 import org.junit.Test
 

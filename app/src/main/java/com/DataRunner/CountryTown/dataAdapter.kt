@@ -1,4 +1,4 @@
-package com.example.jsonapp
+package com.example.CountryTown
 
 import android.content.Context
 import android.view.LayoutInflater
