@@ -1,4 +1,4 @@
-package com.example.CountryTown
+package com.DataRunner.CountryTown
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.test.R
-
 
 class dataAdapter(val context: Context, val dataList: ArrayList<data>) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
