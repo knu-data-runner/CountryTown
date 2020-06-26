@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -22,10 +23,15 @@ class DataAdapter(
         RecyclerView.ViewHolder(itemView) {
         val dataSido = itemView.findViewById<TextView>(R.id.sido)
         val dataTitle = itemView.findViewById<TextView>(R.id.title)
+        val dataprogramType = itemView.findViewById<TextView>(R.id.programType)
+        val dataprogramContent = itemView.findViewById<TextView>(R.id.programContent)
+        val dataPic1 = itemView.findViewById<ImageView>(R.id.imageView)
 
         fun bind (data: Data, context: Context) {
             dataSido.text = data.sido
             dataTitle.text = data.title
+            dataprogramType.text = data.programType
+            dataprogramContent.text = data.programContent
             itemView.setOnClickListener { itemClick(data) }
         }
     }

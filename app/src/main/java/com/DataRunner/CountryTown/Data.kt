@@ -13,5 +13,7 @@ class Data(
     val manage: String,
     val lat: Double,
     val lon: Double,
-    val dataVersion: String
+    val dataVersion: String,
+    val pic1 : String,
+    val pic2 : String
 )

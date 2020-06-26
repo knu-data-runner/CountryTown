@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        setSupportActionBar(toolbar)
+
         parsing("전체")
 
         val clickListener = View.OnClickListener { view ->
@@ -174,14 +174,16 @@ class MainActivity : AppCompatActivity() {
                 val lat = obj.getDouble("위도")
                 val lon = obj.getDouble("경도")
                 val dataVersion = obj.getString("데이터기준일자")
+                val pic1 = obj.getString("체험마을사진")
+                val pic2 = obj.getString("보유시설정보")
 
                 val listLine = Data(
-                    title, sido, sigungu, programType, programContent, addr, master, number, link, manage, lat, lon, dataVersion
+                    title, sido, sigungu, programType, programContent, addr, master, number, link, manage, lat, lon, dataVersion, pic1, pic2
                 )
                 dataList.add(listLine)
             }
         } catch (e: Exception) {
-            val listLine = Data(e.toString(), "오류","오류", "오류", "오류", "오류", "오류", "오류", "오류", "오류", 0.0, 0.0,  "오류")
+            val listLine = Data(e.toString(), "오류","오류", "오류", "오류", "오류", "오류", "오류", "오류", "오류", 0.0, 0.0,  "오류", "오류", "오류")
             dataList.add(listLine)
         }
     }

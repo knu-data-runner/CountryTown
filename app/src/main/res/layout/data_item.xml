@@ -5,36 +5,122 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="200dp"
         android:background="@drawable/list_line"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints">
-        <TextView
-            android:id="@+id/sido"
-            android:layout_width="match_parent"
-            android:layout_height="29dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.017"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            tools:text="시도명"
-            android:gravity="left" />
 
-        <TextView
-            android:id="@+id/title"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintVertical_bias="0.017"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            tools:text="체험마을명"
-            android:gravity="left"
-            android:singleLine="true"
-            />
+            android:layout_height="match_parent"
+            android:background="@drawable/background_img"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sido"
+                    android:layout_width="195dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/background_img"
+                    android:fontFamily="@font/mapo"
+                    android:gravity="center_vertical"
+                    android:paddingTop="3dp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="시도명" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="195dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/background_img"
+                    android:fontFamily="@font/mapo"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    tools:text="체험마을명" />
+
+                <TextView
+                    android:id="@+id/programType"
+                    android:layout_width="195dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/background_img"
+                    android:fontFamily="@font/mapo"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="만들기구분" />
+
+                <TextView
+                    android:id="@+id/programContent"
+                    android:layout_width="195dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/background_img"
+                    android:fontFamily="@font/mapo"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="체험내용입니다.가나다" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_launcher_background" />
+
+        </LinearLayout>
     </LinearLayout>
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        tools:ignore="MissingConstraints"-->
+<!--        android:background="@drawable/list_line">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/sido"-->
+<!--            android:background="@drawable/background_img"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="35dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.017"-->
+<!--            android:textSize="25sp"-->
+<!--            android:textStyle="bold"-->
+<!--            tools:text="시도명"-->
+<!--            android:paddingTop="3dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:fontFamily = "@font/mapo" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/title"-->
+<!--            android:background="@drawable/background_img"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="45dp"-->
+<!--            app:layout_constraintVertical_bias="0.017"-->
+<!--            android:textSize="30sp"-->
+<!--            android:textStyle="bold"-->
+<!--            tools:text="체험마을명"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:singleLine="true"-->
+<!--            android:fontFamily = "@font/mapo"/>-->
+<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

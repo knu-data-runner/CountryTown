@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.DataRunner.CountryTown.MainActivity" >
 
-    <textView>
-        text
-    </textView>
+
     <item android:id="@+id/action_main"
         android:title="main"
         android:orderInCategory="1"
