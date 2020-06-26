@@ -26,5 +26,3 @@
     </application>
 
 </manifest>
-
-<!--    android:parentActivityName=".MainActivity"  툴바 없애기-->

@@ -10,10 +10,12 @@ import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.naver.maps.map.NaverMapSdk
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.main_toolbar.*
 import org.json.JSONArray
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,8 +35,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btn.setOnClickListener(clickListener)
+
+        NaverMapSdk.getInstance(this).client =
+            NaverMapSdk.NaverCloudPlatformClient(getSecret("naver", "CLIENT_ID"))
     }
-    fun showPopup(view: View){
+
+    private fun getSecret(provider:String, keyArg:String): String {
+        val assetManager = resources.assets
+        val inputStream= assetManager.open("secret.json")
+        val jsonString = inputStream.bufferedReader().use { it.readText() }
+        val obj = JSONObject(jsonString)
+        val secret = obj.getJSONObject(provider)
+        return secret.getString(keyArg)
+    }
+
+    private fun showPopup(view: View){
         var popupMenu = PopupMenu(this, view)
         var inflater = popupMenu.menuInflater
         inflater.inflate(R.menu.popup_menu, popupMenu.menu)
@@ -124,19 +139,9 @@ class MainActivity : AppCompatActivity() {
     private fun parsing(checkSido : String) {
         val dataAdapter = DataAdapter(this, dataList) { data ->
             val toDetailIntent = Intent(this, Detail::class.java)
-            toDetailIntent.putExtra("title", data.title)
-            toDetailIntent.putExtra("sido", data.sido)
-            toDetailIntent.putExtra("sigungu", data.sigungu)
-            toDetailIntent.putExtra("programType", data.programType)
-            toDetailIntent.putExtra("programContent", data.programContent)
-            toDetailIntent.putExtra("addr", data.addr)
-            toDetailIntent.putExtra("master", data.master)
-            toDetailIntent.putExtra("number", data.number)
-            toDetailIntent.putExtra("link", data.link)
-            toDetailIntent.putExtra("manage", data.manage)
-            toDetailIntent.putExtra("lat", data.lat)
-            toDetailIntent.putExtra("lon", data.lon)
-            toDetailIntent.putExtra("dataVersion", data.dataVersion)
+            val b = Bundle()
+            b.putParcelable("parceledData", data)
+            toDetailIntent.putExtra("bundleData", b)
             startActivity(toDetailIntent)
         }
         result.adapter = dataAdapter
@@ -162,23 +167,22 @@ class MainActivity : AppCompatActivity() {
                 val sido = obj.getString("시도명")
                 if(sido!=checkSido && checkSido!="전체") { continue }
 
-                val title = obj.getString("체험마을명")
-                val sigungu = obj.getString("시군구명")
-                val programType = obj.getString("체험프로그램구분")
-                val programContent = obj.getString("체험내용")
-                val addr = obj.getString("소재지도로명주소")
-                val master = obj.getString("대표자성명")
-                val number = obj.getString("대표전화번호")
-                val link = obj.getString("홈페이지주소")
-                val manage = obj.getString("관리기관명")
-                val lat = obj.getDouble("위도")
-                val lon = obj.getDouble("경도")
-                val dataVersion = obj.getString("데이터기준일자")
-                val pic1 = obj.getString("체험마을사진")
-                val pic2 = obj.getString("보유시설정보")
-
                 val listLine = Data(
-                    title, sido, sigungu, programType, programContent, addr, master, number, link, manage, lat, lon, dataVersion, pic1, pic2
+                    obj.getString("체험마을명"),
+                    obj.getString("시도명"),
+                    obj.getString("시군구명"),
+                    obj.getString("체험프로그램구분"),
+                    obj.getString("체험내용"),
+                    obj.getString("소재지도로명주소"),
+                    obj.getString("대표자성명"),
+                    obj.getString("대표전화번호"),
+                    obj.getString("홈페이지주소"),
+                    obj.getString("관리기관명"),
+                    obj.getDouble("위도"),
+                    obj.getDouble("경도"),
+                    obj.getString("데이터기준일자"),
+                    obj.getString("체험마을사진"),
+                    obj.getString("보유시설정보")
                 )
                 dataList.add(listLine)
             }

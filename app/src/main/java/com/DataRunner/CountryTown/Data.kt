@@ -1,6 +1,10 @@
 package com.DataRunner.CountryTown
 
-class Data(
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Data(
     val title: String,
     val sido: String,
     val sigungu: String,
@@ -16,4 +20,4 @@ class Data(
     val dataVersion: String,
     val pic1 : String,
     val pic2 : String
-)
+) : Parcelable
