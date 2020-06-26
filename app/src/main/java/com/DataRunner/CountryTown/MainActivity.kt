@@ -53,82 +53,68 @@ class MainActivity : AppCompatActivity() {
         var popupMenu = PopupMenu(this, view)
         var inflater = popupMenu.menuInflater
         inflater.inflate(R.menu.popup_menu, popupMenu.menu)
+        dataList = arrayListOf<Data>()
         popupMenu.show()
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.all -> {
                     btn.text = "전체"
-                    dataList = arrayListOf<Data>()
                     parsing("전체")
                 }
                 R.id.incheon -> {
                     btn.text = "인천"
-                    dataList = arrayListOf<Data>()
                     parsing("인천광역시")
                 }
                 R.id.gwangju -> {
                     btn.text = "광주"
-                    dataList = arrayListOf<Data>()
                     parsing("광주광역시")
                 }
                 R.id.daejeon -> {
                     btn.text = "대전"
-                    dataList = arrayListOf<Data>()
                     parsing("대전광역시")
                 }
                 R.id.ulsan -> {
                     btn.text = "울산"
-                    dataList = arrayListOf<Data>()
                     parsing("울산광역시")
                 }
                 R.id.sejong -> {
                     btn.text = "세종"
-                    dataList = arrayListOf<Data>()
                     parsing("세종특별자치시")
                 }
                 R.id.gyeonggi -> {
                     btn.text = "경기"
-                    dataList = arrayListOf<Data>()
                     parsing("경기도")
                 }
                 R.id.gangwon -> {
                     btn.text = "강원"
-                    dataList = arrayListOf<Data>()
                     parsing("강원도")
                 }
                 R.id.chungbuk -> {
                     btn.text = "충북"
-                    dataList = arrayListOf<Data>()
                     parsing("충청북도")
                 }
                 R.id.chungnam -> {
                     btn.text = "충남"
-                    dataList = arrayListOf<Data>()
                     parsing("충청남도")
                 }
                 R.id.jeonbuk -> {
                     btn.text = "전북"
-                    dataList = arrayListOf<Data>()
                     parsing("전라북도")
                 }
                 R.id.jeonnam -> {
                     btn.text = "전남"
-                    dataList = arrayListOf<Data>()
                     parsing("전라남도")
                 }
                 R.id.gyeongbuk -> {
                     btn.text = "경북"
-                    dataList = arrayListOf<Data>()
                     parsing("경상북도")
                 }
                 R.id.gyeongnam -> {
                     btn.text = "경남"
-                    dataList = arrayListOf<Data>()
                     parsing("경상남도")
                 }
                 R.id.jeju -> {
                     btn.text = "제주"
-                    dataList = arrayListOf<Data>()
                     parsing("제주특별자치도")
                 }
             }

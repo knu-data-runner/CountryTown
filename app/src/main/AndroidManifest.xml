@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.DataRunner.CountryTown" >
 
-        <!--인터넷 접근-->
+    <!--인터넷 접근-->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

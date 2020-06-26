@@ -21,6 +21,7 @@ allprojects {
         google()
         jcenter()
         maven{ url 'https://navercorp.bintray.com/maps' } // 네이버 지도 저장소
+        mavenCentral()
     }
 }
 

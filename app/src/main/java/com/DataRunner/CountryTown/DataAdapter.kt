@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class DataAdapter(
     val context: Context,               // MainActivity
@@ -25,13 +26,14 @@ class DataAdapter(
         val dataTitle = itemView.findViewById<TextView>(R.id.title)
         val dataprogramType = itemView.findViewById<TextView>(R.id.programType)
         val dataprogramContent = itemView.findViewById<TextView>(R.id.programContent)
-        val dataPic1 = itemView.findViewById<ImageView>(R.id.imageView)
+        val dataImgUrl1 = itemView.findViewById<ImageView>(R.id.imageView)
 
         fun bind (data: Data, context: Context) {
             dataSido.text = data.sido
             dataTitle.text = data.title
             dataprogramType.text = data.programType
             dataprogramContent.text = data.programContent
+            Glide.with(itemView).load(data.imgUrl1).into(dataImgUrl1)
             itemView.setOnClickListener { itemClick(data) }
         }
     }
