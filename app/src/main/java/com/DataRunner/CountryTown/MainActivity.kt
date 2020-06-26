@@ -10,10 +10,12 @@ import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.naver.maps.map.NaverMapSdk
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.main_toolbar.*
 import org.json.JSONArray
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +35,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btn.setOnClickListener(clickListener)
+
+        NaverMapSdk.getInstance(this).client =
+            NaverMapSdk.NaverCloudPlatformClient(getSecret("naver", "CLIENT_ID"))
+    }
+
+    private fun getSecret(provider:String, keyArg:String): String {
+        val assetManager = resources.assets
+        val inputStream= assetManager.open("secret.json")
+        val jsonString = inputStream.bufferedReader().use { it.readText() }
+        val obj = JSONObject(jsonString)
+        val secret = obj.getJSONObject(provider)
+        return secret.getString(keyArg)
     }
 
     private fun showPopup(view: View){
