@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/androidstudio,kotlin
 # Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio,kotlin
 
+### Custom ###
+secret.json
+
 ### Kotlin ###
 # Compiled class file
 *.class
