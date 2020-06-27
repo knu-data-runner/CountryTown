@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.UiThread
 import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
@@ -26,11 +27,12 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val lon = parceledData!!.lon
         val address = parceledData?.addr
         val number = parceledData?.number
+        val dataImgUrl2 = parceledData?.imgUrl2
 
         // Set variables and processing
         town_title.text = title
         program_description.text = programDescription
-        addr.text = address
+        addr.text = "주소: " + address
         call_number.text = number
         latlan = LatLng(lat, lon)
         call_button.setOnClickListener {
@@ -38,6 +40,8 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
             intent.data = Uri.parse("tel:"+number)
             startActivity(intent)
         }
+
+        Glide.with(this).load(dataImgUrl2).into(detail_img)
 
         // Map
         val fm = supportFragmentManager
