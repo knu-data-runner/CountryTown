@@ -38,9 +38,18 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         program_type.text = type
         program_content.text = content
         addr.text = address
-        call_number.text = number
         latlan = LatLng(lat, lon)
-        call_button.setOnClickListener {
+        call.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:"+number)
+            startActivity(intent)
+        }
+        like.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:"+number)
+            startActivity(intent)
+        }
+        share.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:"+number)
             startActivity(intent)
@@ -66,7 +75,7 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val options = NaverMapOptions()
             .camera(CameraPosition(latlan, 1.0))
             .mapType(NaverMap.MapType.Terrain)
-        naverMap.cameraPosition = CameraPosition(latlan, 6.0)
+        naverMap.cameraPosition = CameraPosition(latlan, 8.0)
 
         val marker = Marker()
         marker.position = latlan
