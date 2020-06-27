@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        parsing("전체")
+        parsing()
 
         val clickListener = View.OnClickListener { view ->
             when (view.id) {
@@ -56,73 +56,41 @@ class MainActivity : AppCompatActivity() {
         dataList = arrayListOf<Data>()
         popupMenu.show()
         popupMenu.setOnMenuItemClickListener {
-            when(it.itemId){
+            when(it.itemId) {
                 R.id.all -> {
-                    btn.text = "전체"
-                    parsing("전체")
+                    btn.text = "전국"
+                    parsing("전국")
                 }
-                R.id.incheon -> {
-                    btn.text = "인천"
-                    parsing("인천광역시")
+                R.id.sudo -> {
+                    btn.text = "수도권"
+                    parsing("수도")
                 }
-                R.id.gwangju -> {
-                    btn.text = "광주"
-                    parsing("광주광역시")
+                R.id.kangwon -> {
+                    btn.text = "강원권"
+                    parsing("강원")
                 }
-                R.id.daejeon -> {
-                    btn.text = "대전"
-                    parsing("대전광역시")
+                R.id.chung -> {
+                    btn.text = "충청권"
+                    parsing("충청")
                 }
-                R.id.ulsan -> {
-                    btn.text = "울산"
-                    parsing("울산광역시")
+                R.id.jeon -> {
+                    btn.text = "전라권"
+                    parsing("전라")
                 }
-                R.id.sejong -> {
-                    btn.text = "세종"
-                    parsing("세종특별자치시")
-                }
-                R.id.gyeonggi -> {
-                    btn.text = "경기"
-                    parsing("경기도")
-                }
-                R.id.gangwon -> {
-                    btn.text = "강원"
-                    parsing("강원도")
-                }
-                R.id.chungbuk -> {
-                    btn.text = "충북"
-                    parsing("충청북도")
-                }
-                R.id.chungnam -> {
-                    btn.text = "충남"
-                    parsing("충청남도")
-                }
-                R.id.jeonbuk -> {
-                    btn.text = "전북"
-                    parsing("전라북도")
-                }
-                R.id.jeonnam -> {
-                    btn.text = "전남"
-                    parsing("전라남도")
-                }
-                R.id.gyeongbuk -> {
-                    btn.text = "경북"
-                    parsing("경상북도")
-                }
-                R.id.gyeongnam -> {
-                    btn.text = "경남"
-                    parsing("경상남도")
+                R.id.kyung -> {
+                    btn.text = "경상권"
+                    parsing("경상")
                 }
                 R.id.jeju -> {
-                    btn.text = "제주"
-                    parsing("제주특별자치도")
+                    btn.text = "제주도"
+                    parsing("제주")
                 }
             }
             true
         }
     }
 
-    private fun parsing(checkSido : String) {
+    private fun parsing(checkSido : String = "전국") {
         val dataAdapter = DataAdapter(this, dataList) { data ->
             val toDetailIntent = Intent(this, Detail::class.java)
             val b = Bundle()
@@ -139,7 +107,6 @@ class MainActivity : AppCompatActivity() {
 
         //start
         StrictMode.enableDefaults()
-
         try {
             val assetManager = resources.assets
             val inputStream= assetManager.open("data.json")
@@ -151,26 +118,33 @@ class MainActivity : AppCompatActivity() {
 
                 val obj = jArray.getJSONObject(i)
                 val sido = obj.getString("시도명")
-                if(sido!=checkSido && checkSido!="전체") { continue }
-
-                val listLine = Data(
-                    obj.getString("체험마을명"),
-                    obj.getString("시도명"),
-                    obj.getString("시군구명"),
-                    obj.getString("체험프로그램구분"),
-                    obj.getString("체험내용"),
-                    obj.getString("소재지도로명주소"),
-                    obj.getString("대표자성명"),
-                    obj.getString("대표전화번호"),
-                    obj.getString("홈페이지주소"),
-                    obj.getString("관리기관명"),
-                    obj.getDouble("위도"),
-                    obj.getDouble("경도"),
-                    obj.getString("데이터기준일자"),
-                    obj.getString("체험마을사진"),
-                    obj.getString("보유시설정보")
-                )
-                dataList.add(listLine)
+                if (checkSido=="전국" ||
+                    sido.contains(checkSido) ||
+                    (sido=="경기도" && checkSido=="수도") ||
+                    (sido=="인천광역시" && checkSido=="수도") ||
+                    (sido=="세종특별자치시" && checkSido=="충청") ||
+                    (sido=="대전광역시" && checkSido=="충청") ||
+                    (sido=="광주광역시" && checkSido=="광주") ||
+                    (sido=="울산광역시" && checkSido=="경상")) {
+                    val listLine = Data(
+                        obj.getString("체험마을명"),
+                        obj.getString("시도명"),
+                        obj.getString("시군구명"),
+                        obj.getString("체험프로그램구분"),
+                        obj.getString("체험내용"),
+                        obj.getString("소재지도로명주소"),
+                        obj.getString("대표자성명"),
+                        obj.getString("대표전화번호"),
+                        obj.getString("홈페이지주소"),
+                        obj.getString("관리기관명"),
+                        obj.getDouble("위도"),
+                        obj.getDouble("경도"),
+                        obj.getString("데이터기준일자"),
+                        obj.getString("체험마을사진"),
+                        obj.getString("보유시설정보")
+                    )
+                    dataList.add(listLine)
+                }
             }
         } catch (e: Exception) {
             val listLine = Data(e.toString(), "오류","오류", "오류", "오류", "오류", "오류", "오류", "오류", "오류", 0.0, 0.0,  "오류", "오류", "오류")

@@ -8,87 +8,40 @@
 
     <item
         android:id="@+id/all"
-        android:title="전체"
+        android:title="전국"
         android:orderInCategory="1"
         app:showAsAction="always"
         android:layout_width = "match_parent"
         />
     <item
-        android:id="@+id/incheon"
-        android:title="인천"
+        android:id="@+id/sudo"
+        android:title="수도권"
         android:orderInCategory="2"
         app:showAsAction="never" />
-
     <item
-        android:id="@+id/gwangju"
-        android:title="광주"
+        android:id="@+id/kangwon"
+        android:title="강원권"
         android:orderInCategory="3"
         app:showAsAction="never" />
-
     <item
-        android:id="@+id/daejeon"
-        android:title="대전"
+        android:id="@+id/chung"
+        android:title="충청권"
         android:orderInCategory="4"
         app:showAsAction="never" />
-
     <item
-        android:id="@+id/ulsan"
-        android:title="울산"
+        android:id="@+id/jeon"
+        android:title="전라권"
         android:orderInCategory="5"
         app:showAsAction="never" />
-
     <item
-        android:id="@+id/sejong"
-        android:title="세종"
+        android:id="@+id/kyung"
+        android:title="경상권"
         android:orderInCategory="6"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/gyeonggi"
-        android:title="경기"
-        android:orderInCategory="7"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/gangwon"
-        android:title="강원"
-        android:orderInCategory="8"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/chungbuk"
-        android:title="충북"
-        android:orderInCategory="9"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/chungnam"
-        android:title="충남"
-        android:orderInCategory="10"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/jeonbuk"
-        android:title="전북"
-        android:orderInCategory="11"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/jeonnam"
-        android:title="전남"
-        android:orderInCategory="12"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/gyeongbuk"
-        android:title="경북"
-        android:orderInCategory="13"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/gyeongnam"
-        android:title="경남"
-        android:orderInCategory="14"
         app:showAsAction="never" />
     <item
         android:id="@+id/jeju"
-        android:title="제주"
-        android:orderInCategory="15"
+        android:title="제주도"
+        android:orderInCategory="7"
         app:showAsAction="never" />
 
 </menu>

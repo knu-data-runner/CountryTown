@@ -72,6 +72,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center_vertical|right"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"/>
 
     </androidx.cardview.widget.CardView>
