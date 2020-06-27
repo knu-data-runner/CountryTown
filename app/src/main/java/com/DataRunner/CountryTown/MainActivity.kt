@@ -62,60 +62,24 @@ class MainActivity : AppCompatActivity() {
                     parsing("전체")
                 }
                 R.id.incheon -> {
-                    btn.text = "인천"
-                    parsing("인천광역시")
+                    btn.text = "수도권"
+                    parsing("수도권")
                 }
                 R.id.gwangju -> {
-                    btn.text = "광주"
-                    parsing("광주광역시")
+                    btn.text = "강원권"
+                    parsing("강원권")
                 }
                 R.id.daejeon -> {
-                    btn.text = "대전"
-                    parsing("대전광역시")
+                    btn.text = "충청권"
+                    parsing("충청권")
                 }
                 R.id.ulsan -> {
-                    btn.text = "울산"
-                    parsing("울산광역시")
+                    btn.text = "전라권"
+                    parsing("전라권")
                 }
                 R.id.sejong -> {
-                    btn.text = "세종"
-                    parsing("세종특별자치시")
-                }
-                R.id.gyeonggi -> {
-                    btn.text = "경기"
-                    parsing("경기도")
-                }
-                R.id.gangwon -> {
-                    btn.text = "강원"
-                    parsing("강원도")
-                }
-                R.id.chungbuk -> {
-                    btn.text = "충북"
-                    parsing("충청북도")
-                }
-                R.id.chungnam -> {
-                    btn.text = "충남"
-                    parsing("충청남도")
-                }
-                R.id.jeonbuk -> {
-                    btn.text = "전북"
-                    parsing("전라북도")
-                }
-                R.id.jeonnam -> {
-                    btn.text = "전남"
-                    parsing("전라남도")
-                }
-                R.id.gyeongbuk -> {
-                    btn.text = "경북"
-                    parsing("경상북도")
-                }
-                R.id.gyeongnam -> {
-                    btn.text = "경남"
-                    parsing("경상남도")
-                }
-                R.id.jeju -> {
-                    btn.text = "제주"
-                    parsing("제주특별자치도")
+                    btn.text = "제주권"
+                    parsing("제주권")
                 }
             }
             true
@@ -151,6 +115,11 @@ class MainActivity : AppCompatActivity() {
 
                 val obj = jArray.getJSONObject(i)
                 val sido = obj.getString("시도명")
+                if(checkSido == "수도권" && sido == "경기도" || sido == "인천광역시")
+
+
+
+
                 if(sido!=checkSido && checkSido!="전체") { continue }
 
                 val listLine = Data(

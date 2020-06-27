@@ -17,6 +17,7 @@
             android:orientation="vertical"
             android:gravity ="center"
             android:fillViewport="true"
+            android:background="@drawable/background_img_2"
             android:layout_marginTop="0dp"
             android:padding="15dp" >
 
@@ -32,6 +33,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="40dp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/mapo"
                     android:text="강화군 체험마을A" />
 
                 <TextView
@@ -39,9 +42,21 @@
                     android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/mapo"
                     android:textSize="25dp"
                     android:lineSpacingMultiplier="1.3"
                     android:text="[프로그램타입] 프로그램명" />
+
+                <ImageView
+                    android:id="@+id/detail_img"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_launcher_background"/>
 
                 <fragment
                     android:id="@+id/map"
@@ -54,7 +69,10 @@
                     android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/mapo"
+                    android:textSize="30dp"
                     android:lineSpacingMultiplier="1.3"
                     android:text="주소: 강원도 춘천시 가나다라마바사아자차카타파아" />
 
@@ -67,20 +85,25 @@
                     <TextView
                         android:id="@+id/call_number"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_weight=".70"
+                        android:layout_height="80dp"
+                        android:layout_weight="80"
+                        android:fontFamily="@font/mapo"
+                        android:textStyle="bold"
+                        android:background="@drawable/background_img"
                         android:text="031-000-0000"
                         android:gravity="center"
                         android:textColor="@color/colorBlack"
-                        android:textSize="23dp" />
+                        android:textSize="40dp" />
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/call_button"
                         android:layout_width="0dp"
-                        android:layout_height="70dp"
-                        android:layout_weight=".30"
-                        android:layout_gravity="right"
-                        android:text="전화" />
+                        android:layout_height="80dp"
+                        android:layout_weight="20"
+                        android:background="@drawable/background_img"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/local_phone-24px"
+                        android:layout_gravity="right"/>
 
                 </LinearLayout>
             </LinearLayout>

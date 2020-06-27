@@ -26,7 +26,7 @@ class DataAdapter(
         val dataTitle = itemView.findViewById<TextView>(R.id.title)
         val dataprogramType = itemView.findViewById<TextView>(R.id.programType)
         val dataprogramContent = itemView.findViewById<TextView>(R.id.programContent)
-        val dataImgUrl1 = itemView.findViewById<ImageView>(R.id.imageView)
+        val dataImgUrl1 = itemView.findViewById<ImageView>(R.id.main_img)
 
         fun bind (data: Data, context: Context) {
             dataSido.text = data.sido
