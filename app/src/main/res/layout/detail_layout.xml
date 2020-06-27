@@ -26,34 +26,63 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/town_title"
-                    android:layout_marginBottom="20dp"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="40dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/mapo"
-                    android:text="강화군 체험마을A" />
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/title_sigungu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mapo"
+                        android:text="강화군" />
 
-                <TextView
-                    android:id="@+id/program_description"
-                    android:layout_marginBottom="20dp"
+                    <TextView
+                        android:id="@+id/title_town"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="40dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mapo"
+                        android:text="체험마을A" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/mapo"
-                    android:textSize="25dp"
-                    android:lineSpacingMultiplier="1.3"
-                    android:text="[프로그램타입] 프로그램명" />
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/program_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mapo"
+                        android:textSize="25dp"
+                        android:lineSpacingMultiplier="1.3"
+                        android:text="프로그램타입" />
+
+                    <TextView
+                        android:id="@+id/program_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mapo"
+                        android:textSize="25dp"
+                        android:lineSpacingMultiplier="1.3"
+                        android:text="활동 내용" />
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/detail_img"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_height="300dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_launcher_background"/>
@@ -62,6 +91,7 @@
                     android:id="@+id/map"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:layout_marginBottom="20dp"
                     android:name="com.naver.maps.map.MapFragment" />
 
                 <TextView
@@ -69,12 +99,11 @@
                     android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/mapo"
-                    android:textSize="30dp"
+                    android:textSize="20sp"
                     android:lineSpacingMultiplier="1.3"
-                    android:text="주소: 강원도 춘천시 가나다라마바사아자차카타파아" />
+                    android:text="강원도 춘천시 가나다라마바사아자차카타파아" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -85,26 +114,25 @@
                     <TextView
                         android:id="@+id/call_number"
                         android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="80"
-                        android:fontFamily="@font/mapo"
-                        android:textStyle="bold"
-                        android:background="@drawable/background_img"
+                        android:layout_height="60dp"
+                        android:layout_weight="60"
                         android:text="031-000-0000"
-                        android:gravity="center"
+                        android:gravity="center_vertical|right"
                         android:textColor="@color/colorBlack"
-                        android:textSize="40dp" />
-
-                    <ImageButton
-                        android:id="@+id/call_button"
+                        android:fontFamily="@font/mapo"
+                        android:textSize="25dp" />
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="20"
-                        android:background="@drawable/background_img"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/local_phone-24px"
-                        android:layout_gravity="right"/>
-
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical">
+                        <Button
+                            android:id="@+id/call_button"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_call_black_24dp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -113,6 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@color/main_color"
             android:text="예약" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,7 +37,7 @@
                 android:background="@drawable/background_img_2"
                 android:gravity="center_vertical|center_horizontal"
                 android:fontFamily = "@font/mapo"
-                android:text="전체"
+                android:text="전국"
                 android:textSize="25sp" />
         </LinearLayout>
 

@@ -21,18 +21,23 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         // Get variables
         val bundleData = intent.getBundleExtra("bundleData")
         val parceledData = bundleData.getParcelable<Data>("parceledData")
-        val title = parceledData?.sigungu + " " + parceledData?.title
-        val programDescription = "[" + parceledData?.programType + "] " + parceledData?.programContent
+        val sigungu = parceledData?.sigungu
+        val town = parceledData?.title
+        val type = parceledData?.programType
+        val content = parceledData?.programContent
         val lat = parceledData!!.lat
         val lon = parceledData!!.lon
         val address = parceledData?.addr
         val number = parceledData?.number
         val dataImgUrl2 = parceledData?.imgUrl2
+        val link = parceledData?.link
 
         // Set variables and processing
-        town_title.text = title
-        program_description.text = programDescription
-        addr.text = "주소: " + address
+        title_sigungu.text = sigungu
+        title_town.text = town
+        program_type.text = type
+        program_content.text = content
+        addr.text = address
         call_number.text = number
         latlan = LatLng(lat, lon)
         call_button.setOnClickListener {
@@ -40,8 +45,12 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
             intent.data = Uri.parse("tel:"+number)
             startActivity(intent)
         }
-
         Glide.with(this).load(dataImgUrl2).into(detail_img)
+        registration_button.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(link)
+            startActivity(intent)
+        }
 
         // Map
         val fm = supportFragmentManager
