@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class DataAdapter(
     val context: Context,               // MainActivity
@@ -26,14 +28,29 @@ class DataAdapter(
         val dataTitle = itemView.findViewById<TextView>(R.id.title)
         val dataprogramType = itemView.findViewById<TextView>(R.id.programType)
         val dataprogramContent = itemView.findViewById<TextView>(R.id.programContent)
-        val dataImgUrl1 = itemView.findViewById<ImageView>(R.id.main_img)
+        val dataImg = itemView.findViewById<ImageView>(R.id.main_img)
 
         fun bind (data: Data, context: Context) {
             dataSido.text = data.sido
             dataTitle.text = data.title
             dataprogramType.text = data.programType
             dataprogramContent.text = data.programContent
-            Glide.with(itemView).load(data.imgUrl1).into(dataImgUrl1)
+
+            val storage = Firebase.storage
+            var storageRef = storage.reference
+            storageRef.child("img/town/" + data.townId + "_1.png").downloadUrl.addOnSuccessListener {
+                // Got the download URL for 'users/me/profile.png'
+                Glide.with(itemView)
+                    .load(it)
+                    .into(dataImg)
+            }.addOnFailureListener {
+                // Handle any errors
+                storageRef.child("img/town/" + data.townId + "_1.PNG").downloadUrl.addOnSuccessListener {
+                    Glide.with(itemView)
+                        .load(it)
+                        .into(dataImg)
+                }
+            }
             itemView.setOnClickListener { itemClick(data) }
         }
     }
