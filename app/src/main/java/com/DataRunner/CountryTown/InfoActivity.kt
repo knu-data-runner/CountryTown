@@ -8,11 +8,13 @@ import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import kotlinx.android.synthetic.main.info_layout.*
 
-class Info : FragmentActivity(), OnMapReadyCallback {
-    private val latlan: LatLng = LatLng(36.35111, 127.38500)
+class InfoActivity : FragmentActivity(), OnMapReadyCallback {
+    private var dataList = arrayListOf<Data>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.info_layout)
+
+        dataList = intent.getParcelableArrayListExtra("dataList")
 
         // Map
         val fm = supportFragmentManager
@@ -25,10 +27,15 @@ class Info : FragmentActivity(), OnMapReadyCallback {
 
     @UiThread
     override fun onMapReady(naverMap: NaverMap) {
-        naverMap.cameraPosition = CameraPosition(latlan, 4.0)
+        val latlng = LatLng(35.956874, 127.733705) // 계룡리(남한 중앙) 좌표
+        naverMap.cameraPosition = CameraPosition(latlng, 5.5)
 
-        val marker = Marker()
-        marker.position = latlan
-        marker.map = naverMap
+        for (data in dataList) {
+            val marker = Marker()
+            marker.width = Marker.SIZE_AUTO
+            marker.height = Marker.SIZE_AUTO
+            marker.position = LatLng(data.lat, data.lon)
+            marker.map = naverMap
+        }
     }
 }

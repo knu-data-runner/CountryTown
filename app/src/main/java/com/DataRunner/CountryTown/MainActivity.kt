@@ -6,20 +6,18 @@ import android.os.StrictMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naver.maps.map.NaverMapSdk
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_layout.*
-import kotlinx.android.synthetic.main.main_toolbar.*
 import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
-    var dataList = arrayListOf<Data>()
+    private var dataList = arrayListOf<Data>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,12 +164,13 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when(item.itemId) {
 
-            R.id.action_main -> {
-                var intent = Intent(this, MainActivity :: class.java)
+            R.id.action_info -> {
+                val intent = Intent(this, InfoActivity :: class.java)
+                intent.putExtra("dataList", dataList)
                 startActivity(intent)
                 return true
             }
-            R.id.action_settings -> {
+            R.id.action_main -> {
                 var intent = Intent(this, MainActivity :: class.java)
                 startActivity(intent)
                 return true

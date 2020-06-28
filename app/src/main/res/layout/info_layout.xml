@@ -45,7 +45,7 @@
                         android:id="@+id/app_description1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="5dp"
                         android:text="컨츄리타운은 한국농어촌공사의 공공데이터인 '농촌체험휴양마을' 정보를 받아옵니다."
                         android:textColor="@color/colorBlack"
                         android:fontFamily="@font/mapo"
@@ -72,43 +72,19 @@
                         android:id="@+id/app_description3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="전국 1,000여 개의 마을 정보 제공"
+                        android:layout_marginBottom="10dp"
+                        android:text="전국 1,000여 개의 마을 데이터베이스"
                         android:textColor="@color/colorBlack"
                         android:fontFamily="@font/mapo"
-                        android:textSize="23sp" />
+                        android:textSize="20sp" />
 
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="com.naver.maps.map.MapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="450dp"
+                        android:layout_marginBottom="20dp" />
 
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/call_number"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="60"
-                        android:text="031-000-0000"
-                        android:gravity="center_vertical|right"
-                        android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/mapo"
-                        android:textSize="25dp" />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="40"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical">
-                        <Button
-                            android:id="@+id/call_button"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/ic_call_black_24dp" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
