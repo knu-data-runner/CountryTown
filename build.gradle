@@ -34,5 +34,3 @@ repositories {
     mavenCentral()
     google()
 }
-
-

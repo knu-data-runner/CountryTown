@@ -6,12 +6,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
 import androidx.fragment.app.FragmentActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.gson.JsonArray
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapFragment
@@ -19,7 +18,6 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import kotlinx.android.synthetic.main.detail_layout.*
-import kotlinx.android.synthetic.main.main_layout.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -28,7 +26,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.LocalDate
 
 
 class Detail : FragmentActivity(), OnMapReadyCallback {
@@ -84,9 +81,10 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
+        // Weather
         val grid = convertGRID_GPS(TO_GRID, lat, lon)
-        val gridX = grid.x
-        val gridY = grid.y
+        val gridX = grid.x.toInt()
+        val gridY = grid.y.toInt()
         parsing(gridX, gridY)
 
         // Map
@@ -106,8 +104,6 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         marker.position = latlan
         marker.map = naverMap
     }
-
-    //
 
     //위도, 경도 -> GRID X좌표, Y좌표 변환
     private fun convertGRID_GPS(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
@@ -188,12 +184,12 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         var x = 0.0
         var y = 0.0
     }
-    //
+
     /**
      * 파싱하는 함수
      */
     @RequiresApi(Build.VERSION_CODES.O)
-    fun parsing(gridX: Double, gridY: Double){
+    private fun parsing(gridX: Int, gridY: Int){
 
         // Web 통신
         StrictMode.enableDefaults()
@@ -209,29 +205,29 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val dataUrl = "&pageNo=1&numOfRows=20&dataType=json&base_date="
         val timeUrl = "&base_time="
         val xUrl = "&nx="
-        val yUrl = "&ny=&"
+        val yUrl = "&ny="
 
-        val allUrl = keyUrl + getSecret("Weather", "KEY") +
+        val allUrl = keyUrl + getSecret("weather", "KEY") +
                             dataUrl + dateFormatted + timeUrl + timeFormatted + xUrl + gridX.toString() + yUrl + gridY.toString()
         val weatherStream = URL(allUrl).openConnection() as HttpURLConnection
         var weatherRead = BufferedReader(InputStreamReader(weatherStream.inputStream, "UTF-8"))
         val weatherResponse = weatherRead.readLine()
-        val jArray = JSONArray(weatherResponse)
+        val response = JSONObject(JSONObject(weatherResponse).getString("response"))
+        val items = JSONArray(JSONObject(JSONObject(response.getString("body")).getString("items")).getString("item"))
         var weathers = ""
         var temperatures = ""
 
-        // 모든 공지 noticeList 에 저장
-        for (i in 0 until jArray.length()) {
-            val obj = jArray.getJSONObject(i)
+        for (i in 0 until items.length()) {
+            val obj = items.getJSONObject(i)
             val categorys = obj.getString("category")
             if(categorys.equals("PTY"))
                 weathers = obj.getString("obsrValue")
             if(categorys.equals("T1H"))
                 temperatures = obj.getString("obsrValue")
         }
-
+        print("")
     }
-    //
+
     private fun getSecret(provider:String, keyArg:String): String {
         val assetManager = resources.assets
         val inputStream= assetManager.open("secret.json")
@@ -240,6 +236,4 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val secret = obj.getJSONObject(provider)
         return secret.getString(keyArg)
     }
-
-
 }

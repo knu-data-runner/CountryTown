@@ -6,13 +6,6 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
-
-//현재시간 불러오기
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     defaultConfig {
         applicationId "com.DataRunner.CountryTown"
         minSdkVersion 16
