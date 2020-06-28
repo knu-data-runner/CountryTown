@@ -25,6 +25,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -225,7 +226,7 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         // Web 통신
         StrictMode.enableDefaults()
 
-        val current = LocalDateTime.now()
+        val current = LocalDateTime.now().minus(Duration.ofHours(1))
         val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
         val timeFormatter = DateTimeFormatter.ofPattern("HHMM")
         val dateFormatted = current.format(dateFormatter)
@@ -239,7 +240,7 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val yUrl = "&ny="
 
         val allUrl = keyUrl + getSecret("weather", "KEY") +
-                            dataUrl + dateFormatted + timeUrl + timeFormatted + xUrl + gridX.toString() + yUrl + gridY.toString()
+                dataUrl + dateFormatted + timeUrl + timeFormatted + xUrl + gridX.toString() + yUrl + gridY.toString()
         val weatherStream = URL(allUrl).openConnection() as HttpURLConnection
         var weatherRead = BufferedReader(InputStreamReader(weatherStream.inputStream, "UTF-8"))
         val weatherResponse = weatherRead.readLine()
