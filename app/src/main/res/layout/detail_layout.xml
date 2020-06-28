@@ -164,18 +164,42 @@
                     android:id="@+id/map"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     android:name="com.naver.maps.map.MapFragment" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/weather_img"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_favorite_border_24px"/>
+
+                    <TextView
+                        android:id="@+id/weather_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
+                        android:text="맑음 18℃" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/addr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/mapo"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:lineSpacingMultiplier="1.3"
-                    android:text="주소: 강원도 춘천시 가나다라마바사아자차카타파아" />
+                    android:text="강원도 춘천시 가나다라마바사아자차카타파아" />
             </LinearLayout>
         </ScrollView>
         <Button
