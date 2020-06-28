@@ -6,14 +6,12 @@ import android.os.StrictMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naver.maps.map.NaverMapSdk
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_layout.*
-import kotlinx.android.synthetic.main.main_toolbar.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -182,7 +180,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_maker -> {
-                var intent = Intent(this, MadebyActivity :: class.java)
+                var intent = Intent(this, MakerActivity :: class.java)
                 startActivity(intent)
                 return true
             }
