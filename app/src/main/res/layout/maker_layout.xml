@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MadebyActivity">
+    tools:context=".MakerActivity">
 
-
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/madeBy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#00000000"
             android:background="@drawable/background_img_2">
-        </ListView>
+        </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
