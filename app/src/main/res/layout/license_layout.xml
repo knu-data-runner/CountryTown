@@ -38,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/mapo"
-            android:text="Android 소프트웨어에는 Apache 2.0 라이선스가 부여됩니다. \n
+            android:text="https://source.android.google.cn/setup/start/licenses?hl=ko\n
+Android 소프트웨어에는 Apache 2.0 라이선스가 부여됩니다.\n
 본 프로젝트를 진행하면서 기본 라이선스를 준수하기 위해 노력하겠지만, 예외로 처리되는 사례가 있을 수 있습니다.\n
 예를 들어 Linux 커널 패치에는 kernel.org에서 확인할 수 있는 시스템 예외가 포함된 GPLv2 라이선스가 적용됩니다.\n
 AOSP에 아이디어, 코드 또는 문서를 기여하는 모든 개인 기여자(자신을 위해서만 기여하는 자)는 개인 기여자 라이선스 계약을 작성하고 서명한 다음 제출해야 합니다.\n
@@ -75,7 +76,7 @@ AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기�
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/mapo"
-            android:text="공공데이터 api"
+            android:text="농림축산식품 공공데이터 api"
             android:textSize="23sp"
             android:textStyle="bold" />
 
@@ -89,14 +90,33 @@ AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기�
 2. 포털은 게시된 내용을 사전 통지 없이 편집, 이동 할 수 있는 권리를 보유하며, 다음의 경우 사전 통지 없이 삭제할 수 있습니다.\n
 \t\t1) 본 서비스 약관에 위배되거나 상용 또는 불법, 음란,\n
 \t\t\t\t저속하다고 판단되는 게시물을 게시한 경우\n
-\t\t2) 다른 회원 또는 제 3자를 비방하거나 중상모략으로 명예를\n
-\t\t\t\t손상시키는 내용인 경우\n
+\t\t2) 다른 회원 또는 제 3자를 비방하거나 중상모략으로 명\n
+\t\t\t\t예를손상시키는 내용인 경우\n
 \t\t3) 공공질서 및 미풍양속에 위반되는 내용인 경우\n
 \t\t4) 범죄적 행위에 결부된다고 인정되는 내용일 경우\n
 \t\t5) 제3자의 저작권 등 기타 권리를 침해하는 내용인 경우\n
 \t\t6) 기타 관계 법령에 위배되는 경우\n
 3. 귀하의 게시물이 타인의 저작권을 침해함으로써 발생하는 민, 형사상의 책임은 전적으로 귀하가 부담하여야 합니다."
             android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/mapo"
+            android:text="공공데이터 api" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/mapo"
+            android:text="https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15057682\n
+공공데이터란 공공기관이 만들어내는 모든 자료나 정보, 국민 모두의 소통과 협력을 이끌어내는 공적인 정보를 말합니다.\n
+각 공공기관이 보유한 공공데이터 목록과 국민에게 개방할 수 있는 공공데이터를 포털에 등록하면 모두가 공유할 수 있는 양질의 공공데이터로 재탄생하게 됩니다." />
 
         <TextView
             android:layout_width="match_parent"
@@ -112,8 +132,43 @@ AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기�
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/mapo"
-            android:text="네이버 Maps API를 사용하여 서비스를 구현할 경우, 네이버 Maps에서 제공하고 있는 기능 및 서비스 명을 임의로 변경할 수 없으며, 본 가이드에서 안내된 명칭(거리뷰, 길찾기, 내비게이션, 위성지도, 지적편집도, 지도검색, 대중교통, 실시간교통)과 동일하게 표기해야 합니다."
+            android:text="https://www.ncloud.com/\n
+네이버 Maps API를 사용하여 서비스를 구현할 경우, 네이버 Maps에서 제공하고 있는 기능 및 서비스 명을 임의로 변경할 수 없으며, 본 가이드에서 안내된 명칭(거리뷰, 길찾기, 내비게이션, 위성지도, 지적편집도, 지도검색, 대중교통, 실시간교통)과 동일하게 표기해야 합니다."
             android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/mapo"
+            android:text="어플 아이콘" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/mapo"
+            android:text="https://kor.pngtree.com/so/%EC%A7%91-%EC%95%84%EC%9D%B4%EC%BD%98" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/mapo"
+            android:text="기상청 격자 데이터 to 위경도 데이터" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/mapo"
+            android:text="https://gist.github.com/fronteer-kr/14d7f779d52a21ac2f16" />
 
     </LinearLayout>
     </ScrollView>
