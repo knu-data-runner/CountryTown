@@ -5,23 +5,23 @@
 
 
     <item android:id="@+id/action_info"
-        android:title="info"
+        android:title="무슨어플인가요?"
         android:orderInCategory="0"
         app:showAsAction="never" />
 
     <item android:id="@+id/action_main"
-        android:title="main"
+        android:title="메인화면"
         android:orderInCategory="1"
         app:showAsAction="never" />
 
 
     <item android:id="@+id/action_license"
-        android:title="license"
+        android:title="라이센스"
         android:orderInCategory="2"
         app:showAsAction="never" />
 
     <item android:id="@+id/action_maker"
-        android:title="made by"
+        android:title="만든이"
         android:orderInCategory="3"
         app:showAsAction="never" />
 </menu>
