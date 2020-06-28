@@ -1,9 +1,13 @@
 package com.DataRunner.CountryTown
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,12 +21,22 @@ import com.naver.maps.map.overlay.Marker
 import kotlinx.android.synthetic.main.detail_layout.*
 import kotlinx.android.synthetic.main.main_layout.*
 import org.json.JSONArray
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.LocalDate
+
 
 class Detail : FragmentActivity(), OnMapReadyCallback {
     private var latlan:LatLng = LatLng(0.0, 0.0)
     var TO_GRID = 0
     var TO_GPS = 1
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_layout)
@@ -71,8 +85,10 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         }
 
         val grid = convertGRID_GPS(TO_GRID, lat, lon)
-        val gridX = grid?.x
-        val gridY = grid?.y
+        val gridX = grid.x
+        val gridY = grid.y
+        parsing(gridX, gridY)
+
         // Map
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
@@ -94,7 +110,7 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
     //
 
     //위도, 경도 -> GRID X좌표, Y좌표 변환
-    private fun convertGRID_GPS(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY? {
+    private fun convertGRID_GPS(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
         val RE = 6371.00877 // 지구 반경(km)
         val GRID = 5.0 // 격자 간격(km)
         val SLAT1 = 30.0 // 투영 위도1(degree)
@@ -173,5 +189,57 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         var y = 0.0
     }
     //
+    /**
+     * 파싱하는 함수
+     */
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun parsing(gridX: Double, gridY: Double){
+
+        // Web 통신
+        StrictMode.enableDefaults()
+
+        val current = LocalDateTime.now()
+        val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+        val timeFormatter = DateTimeFormatter.ofPattern("HHMM")
+        val dateFormatted = current.format(dateFormatter)
+        val timeFormatted = current.format(timeFormatter)
+
+        val loadPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE)
+        val keyUrl ="http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst?serviceKey="
+        val dataUrl = "&pageNo=1&numOfRows=20&dataType=json&base_date="
+        val timeUrl = "&base_time="
+        val xUrl = "&nx="
+        val yUrl = "&ny=&"
+
+        val allUrl = keyUrl + getSecret("Weather", "KEY") +
+                            dataUrl + dateFormatted + timeUrl + timeFormatted + xUrl + gridX.toString() + yUrl + gridY.toString()
+        val weatherStream = URL(allUrl).openConnection() as HttpURLConnection
+        var weatherRead = BufferedReader(InputStreamReader(weatherStream.inputStream, "UTF-8"))
+        val weatherResponse = weatherRead.readLine()
+        val jArray = JSONArray(weatherResponse)
+        var weathers = ""
+        var temperatures = ""
+
+        // 모든 공지 noticeList 에 저장
+        for (i in 0 until jArray.length()) {
+            val obj = jArray.getJSONObject(i)
+            val categorys = obj.getString("category")
+            if(categorys.equals("PTY"))
+                weathers = obj.getString("obsrValue")
+            if(categorys.equals("T1H"))
+                temperatures = obj.getString("obsrValue")
+        }
+
+    }
+    //
+    private fun getSecret(provider:String, keyArg:String): String {
+        val assetManager = resources.assets
+        val inputStream= assetManager.open("secret.json")
+        val jsonString = inputStream.bufferedReader().use { it.readText() }
+        val obj = JSONObject(jsonString)
+        val secret = obj.getJSONObject(provider)
+        return secret.getString(keyArg)
+    }
+
 
 }
