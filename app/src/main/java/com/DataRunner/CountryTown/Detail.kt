@@ -81,12 +81,6 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
-        // Weather
-        val grid = convertGRID_GPS(TO_GRID, lat, lon)
-        val gridX = grid.x.toInt()
-        val gridY = grid.y.toInt()
-        parsing(gridX, gridY)
-
         // Map
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
@@ -96,7 +90,31 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         // Weather
-        getWeather(lat, lon)
+        val grid = convertGpsToGrid(TO_GRID, lat, lon)
+        val gridX = grid.x.toInt()
+        val gridY = grid.y.toInt()
+        val wt = parsing(gridX, gridY)
+        val weathers = wt.weathers // 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+        val temperatures = wt.temperatures
+        var weatherDescription = "이 마을의 현재 날씨는\n"
+
+        if (weathers=="0") {
+            weatherDescription += "맑음, " + temperatures + "℃ 입니다."
+            weather_img.setImageResource(R.drawable.ic_sun)
+        } else if (weathers=="1") {
+            weatherDescription += "비, " + temperatures + "℃ 입니다."
+            weather_img.setImageResource(R.drawable.ic_rain)
+        } else if (weathers=="2") {
+            weatherDescription += "비와 눈, " + temperatures + "℃ 입니다."
+            weather_img.setImageResource(R.drawable.ic_snow_rain)
+        } else if (weathers=="3") {
+            weatherDescription += "눈, " + temperatures + "℃ 입니다."
+            weather_img.setImageResource(R.drawable.ic_snow)
+        } else if (weathers=="4") {
+            weatherDescription += "소나기, " + temperatures + "℃ 입니다."
+            weather_img.setImageResource(R.drawable.ic_sonagi)
+        }
+        weather_description.text = weatherDescription
     }
 
     @UiThread
@@ -109,7 +127,7 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
     }
 
     //위도, 경도 -> GRID X좌표, Y좌표 변환
-    private fun convertGRID_GPS(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
+    private fun convertGpsToGrid(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
         val RE = 6371.00877 // 지구 반경(km)
         val GRID = 5.0 // 격자 간격(km)
         val SLAT1 = 30.0 // 투영 위도1(degree)
@@ -185,7 +203,7 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
      * 파싱하는 함수
      */
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun parsing(gridX: Int, gridY: Int){
+    private fun parsing(gridX: Int, gridY: Int): WeathersTemperatures {
 
         // Web 통신
         StrictMode.enableDefaults()
@@ -210,18 +228,23 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val weatherResponse = weatherRead.readLine()
         val response = JSONObject(JSONObject(weatherResponse).getString("response"))
         val items = JSONArray(JSONObject(JSONObject(response.getString("body")).getString("items")).getString("item"))
-        var weathers = ""
-        var temperatures = ""
+        val wt = WeathersTemperatures()
 
         for (i in 0 until items.length()) {
             val obj = items.getJSONObject(i)
             val categorys = obj.getString("category")
             if(categorys.equals("PTY"))
-                weathers = obj.getString("obsrValue")
+                wt.weathers = obj.getString("obsrValue")
             if(categorys.equals("T1H"))
-                temperatures = obj.getString("obsrValue")
+                wt.temperatures = obj.getString("obsrValue")
         }
-        print("")
+
+        return wt
+    }
+
+    internal class WeathersTemperatures {
+        var weathers = ""
+        var temperatures = ""
     }
 
     private fun getSecret(provider:String, keyArg:String): String {
