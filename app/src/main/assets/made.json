@@ -4,20 +4,20 @@
     "이메일":"qwlake@gmail.com",
     "깃주소":"github.com/qwlake",
     "소속":"강원대학교 컴퓨터공학과",
-    "사진":"https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0b2fa967-3c9e-4ae5-afb9-2c282e73d26d/.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20200627%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200627T090756Z&X-Amz-Expires=86400&X-Amz-Signature=2b93aff9fedce434c3617bd6ee36454669dabbda34d6cb1e29526e21e973bda9&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25A0%2595%25EC%259A%25B0.jpg%22"
+    "사진":"img/makers/정우.jpg"
   },
   {
     "이름":"김우진",
     "이메일":"sapa1313@naver.com",
     "깃주소":"github.com/nelomo",
     "소속":"강원대학교 컴퓨터공학과",
-    "사진":"https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b4686bab-2a14-4eaf-8530-035c5473f4fc/.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20200627%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200627T090808Z&X-Amz-Expires=86400&X-Amz-Signature=32c9bcbc5914f732855e9b8f8476099e8d558b3becaaeae106906a0331cead0c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%259A%25B0%25EC%25A7%2584.jpg%22"
+    "사진":"img/makers/우진.jpg"
   },
   {
     "이름":"김재연",
     "이메일":"rave189@naver.com",
     "깃주소":"github.com/rave189",
     "소속":"강원대학교 컴퓨터공학과",
-    "사진":"https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9766210a-8d4b-4af8-aaf1-2089c36096cd/.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20200627%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200627T090821Z&X-Amz-Expires=86400&X-Amz-Signature=7a54522a648c0354f78f80ef527a62f22316e558432c66916e330dcc1867bd9f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%259E%25AC%25EC%2597%25B0.jpg%22"
+    "사진":"img/makers/재연.jpg"
   }
 ]

@@ -18,6 +18,5 @@ data class Data(
     val lat: Double,
     val lon: Double,
     val dataVersion: String,
-    val imgUrl1 : String,
-    val imgUrl2 : String
+    val townId: String
 ) : Parcelable

@@ -10,7 +10,8 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
-import com.google.gson.JsonArray
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapFragment
@@ -49,8 +50,8 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val lon = parceledData!!.lon
         val address = parceledData?.addr
         val number = parceledData?.number
-        val dataImgUrl2 = parceledData?.imgUrl2
         val link = parceledData?.link
+        val townId = parceledData?.townId
 
         // Set variables and processing
         title_sigungu.text = sigungu
@@ -70,11 +71,27 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
         share.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:" + number)
-            startActivity(intent)
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, "이 마을 공유하기");
+            intent.putExtra(Intent.EXTRA_TEXT, link);
+            startActivity(Intent.createChooser(intent, "이 마을 공유하기"))
         }
-        Glide.with(this).load(dataImgUrl2).into(detail_img)
+        val storage = Firebase.storage
+        var storageRef = storage.reference
+        storageRef.child("img/town/" + townId + "_2.png").downloadUrl.addOnSuccessListener {
+            // Got the download URL for 'users/me/profile.png'
+            Glide.with(this)
+                .load(it)
+                .into(detail_img)
+        }.addOnFailureListener {
+            // Handle any errors
+            storageRef.child("img/town/" + townId + "_2.PNG").downloadUrl.addOnSuccessListener {
+                Glide.with(this)
+                    .load(it)
+                    .into(detail_img)
+            }
+        }
         registration_button.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(link)

@@ -138,14 +138,13 @@ class MainActivity : AppCompatActivity() {
                         obj.getDouble("위도"),
                         obj.getDouble("경도"),
                         obj.getString("데이터기준일자"),
-                        obj.getString("체험마을사진"),
-                        obj.getString("보유시설정보")
+                        obj.getString("일련번호")
                     )
                     dataList.add(listLine)
                 }
             }
         } catch (e: Exception) {
-            val listLine = Data(e.toString(), "오류","오류", "오류", "오류", "오류", "오류", "오류", "오류", "오류", 0.0, 0.0,  "오류", "오류", "오류")
+            val listLine = Data(e.toString(), "오류", "오류","오류", "오류", "오류", "오류", "오류", "오류", "오류", 0.0, 0.0,  "오류", "오류")
             dataList.add(listLine)
         }
     }

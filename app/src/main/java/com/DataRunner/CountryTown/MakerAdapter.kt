@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class MakerAdapter(
     val context: Context,               // MainActivity
@@ -35,7 +37,17 @@ class MakerAdapter(
             dataEmail.text = data.makerEmail
             dataGit.text = data.makerGit
             dataAff.text = data.makerAff
-            Glide.with(itemView).load(data.makerImg).into(dataImg)
+
+            val storage = Firebase.storage
+            var storageRef = storage.reference
+            storageRef.child(data.makerImg).downloadUrl.addOnSuccessListener {
+                // Got the download URL for 'users/me/profile.png'
+                Glide.with(itemView)
+                    .load(it)
+                    .into(dataImg)
+            }.addOnFailureListener {
+                // Handle any errors
+            }
             buttonMail.setOnClickListener { itemClick(data) }
         }
     }
