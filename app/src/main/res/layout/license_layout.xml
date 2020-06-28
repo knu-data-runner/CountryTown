@@ -1,72 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_img">
     <LinearLayout
         android:id="@+id/login_layout"
         android:layout_width="match_parent"
         android:layout_height = "match_parent"
+        android:padding="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/mapo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="마포금빛나루체"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-            <TextView
-            android:id="@+id/textView"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="https://www.mapo.go.kr/site/main/content/mapo04010201\n마포 브랜드 서체의 지적 재산권은 마포구에 있습니다.\n마포 브랜드 서체는 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공됩니다. 단, 출처는 표시하여야 합니다.\n마포 브랜드 서체는 인쇄물, 광고물, 온라인 등 상업적 목적으로 사용할 수 있습니다. 단, 유료로 판매하는 것은 금지합니다.\n
-마포 브랜드 서체를 사용한 인쇄물, 광고물(온라인 포함)의 이미지는 마포구 프로모션을 위해 활용될 수 있습니다. 이를 원치 않는 사용자는 언제든지 마포구에 요청할 수 있습니다.
-"/>
+            android:fontFamily="@font/mapo"
+            android:text="라이센스"
+            android:textSize="40sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/opensource"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:text=""
-                android:textSize="40sp"
-                android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/mapo"
+            android:text="안드로이드"
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/dataapi"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:text="공공데이터api" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/mapo"
+            android:text="Android 소프트웨어에는 Apache 2.0 라이선스가 부여됩니다. \n
+본 프로젝트를 진행하면서 기본 라이선스를 준수하기 위해 노력하겠지만, 예외로 처리되는 사례가 있을 수 있습니다.\n
+예를 들어 Linux 커널 패치에는 kernel.org에서 확인할 수 있는 시스템 예외가 포함된 GPLv2 라이선스가 적용됩니다.\n
+AOSP에 아이디어, 코드 또는 문서를 기여하는 모든 개인 기여자(자신을 위해서만 기여하는 자)는 개인 기여자 라이선스 계약을 작성하고 서명한 다음 제출해야 합니다.\n
+코드 검토 도구를 통해 온라인으로 계약을 체결할 수 있습니다.\n
+이 계약은 AOSP에 지적 재산을 기여하는 조건을 명확하게 정의합니다.\n
+이 라이선스는 프로젝트의 보호와 기여자로서의 보호를 위한 것이며 기여를 다른 목적으로 사용하기 위해 권리를 변경하지 않습니다.\n
+AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기업 기여자 라이선스 계약을 사용할 수 있습니다.\n
+이 계약 버전을 통해 기업은 지정된 직원이 제출하는 기여를 승인하고 저작권 및 특허 라이선스를 부여할 수 있습니다."
+            android:textSize="15sp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/mapo"
+            android:text="마포금빛나루체"
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/mapapi"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:text="네이버맵api" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/mapo"
+            android:text="https://www.mapo.go.kr/site/main/content/mapo04010201\n
+마포 브랜드 서체의 지적 재산권은 마포구에 있습니다.\n
+마포 브랜드 서체는 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공됩니다. 단, 출처는 표시하여야 합니다.\n
+마포 브랜드 서체는 인쇄물, 광고물, 온라인 등 상업적 목적으로 사용할 수 있습니다. 단, 유료로 판매하는 것은 금지합니다.\n
+마포 브랜드 서체를 사용한 인쇄물, 광고물(온라인 포함)의 이미지는 마포구 프로모션을 위해 활용될 수 있습니다. 이를 원치 않는 사용자는 언제든지 마포구에 요청할 수 있습니다."
+            android:textSize="15sp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/mapo"
+            android:text="공공데이터 api"
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
-        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/mapo"
+            android:text="http://data.mafra.go.kr/opendata/data/indexOpenDataDetail.do?data_id=20191017000000001373\u0026filter_ty=\n
+1. 귀하가 게시한 게시물의 내용에 대한 권리는 귀하에게 있습니다.\n
+2. 포털은 게시된 내용을 사전 통지 없이 편집, 이동 할 수 있는 권리를 보유하며, 다음의 경우 사전 통지 없이 삭제할 수 있습니다.\n
+\t\t1) 본 서비스 약관에 위배되거나 상용 또는 불법, 음란,\n
+\t\t\t\t저속하다고 판단되는 게시물을 게시한 경우\n
+\t\t2) 다른 회원 또는 제 3자를 비방하거나 중상모략으로 명예를\n
+\t\t\t\t손상시키는 내용인 경우\n
+\t\t3) 공공질서 및 미풍양속에 위반되는 내용인 경우\n
+\t\t4) 범죄적 행위에 결부된다고 인정되는 내용일 경우\n
+\t\t5) 제3자의 저작권 등 기타 권리를 침해하는 내용인 경우\n
+\t\t6) 기타 관계 법령에 위배되는 경우\n
+3. 귀하의 게시물이 타인의 저작권을 침해함으로써 발생하는 민, 형사상의 책임은 전적으로 귀하가 부담하여야 합니다."
+            android:textSize="15sp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/mapo"
+            android:text="네이버맵 api" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/mapo"
+            android:text="네이버 Maps API를 사용하여 서비스를 구현할 경우, 네이버 Maps에서 제공하고 있는 기능 및 서비스 명을 임의로 변경할 수 없으며, 본 가이드에서 안내된 명칭(거리뷰, 길찾기, 내비게이션, 위성지도, 지적편집도, 지도검색, 대중교통, 실시간교통)과 동일하게 표기해야 합니다."
+            android:textSize="15sp"/>
 
     </LinearLayout>
-
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
