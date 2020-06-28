@@ -72,10 +72,7 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
 
     @UiThread
     override fun onMapReady(naverMap: NaverMap) {
-        val options = NaverMapOptions()
-            .camera(CameraPosition(latlan, 1.0))
-            .mapType(NaverMap.MapType.Terrain)
-        naverMap.cameraPosition = CameraPosition(latlan, 8.0)
+        naverMap.cameraPosition = CameraPosition(latlan, 6.0)
 
         val marker = Marker()
         marker.position = latlan

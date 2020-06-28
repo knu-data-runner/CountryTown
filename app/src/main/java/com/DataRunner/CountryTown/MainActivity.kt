@@ -17,7 +17,7 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
-    var dataList = arrayListOf<Data>()
+    private var dataList = arrayListOf<Data>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -164,12 +164,13 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when(item.itemId) {
 
-            R.id.action_main -> {
-                var intent = Intent(this, MainActivity :: class.java)
+            R.id.action_info -> {
+                val intent = Intent(this, InfoActivity :: class.java)
+                intent.putExtra("dataList", dataList)
                 startActivity(intent)
                 return true
             }
-            R.id.action_settings -> {
+            R.id.action_main -> {
                 var intent = Intent(this, MainActivity :: class.java)
                 startActivity(intent)
                 return true

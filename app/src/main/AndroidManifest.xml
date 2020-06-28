@@ -23,7 +23,7 @@
         <activity android:name=".LicenseActivity" android:parentActivityName=".MainActivity" />
         <activity android:name=".MakerActivity" android:parentActivityName=".MainActivity" />
         <activity android:name=".Detail" android:parentActivityName=".MainActivity" />
-
+        <activity android:name=".InfoActivity" android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
