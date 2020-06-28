@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="5dp"
+        app:contentPaddingLeft="5dp"
+        tools:ignore="MissingConstraints" >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/made_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/mapo"
+                android:gravity="center_vertical"
+                android:text="홍길동"
+                android:layout_marginTop="8dp"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mail_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/mapo"
+                android:gravity="center_vertical"
+                android:text = "e-mail"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/made_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/mapo"
+                android:gravity="center_vertical"
+                android:text="asdfasdf@asdfg.asd"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/git_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/mapo"
+                android:gravity="center_vertical"
+                android:text="GitHub"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/made_git"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/mapo"
+                android:gravity="center_vertical"
+                android:text="github.com/asd"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/aff_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mapo"
+                android:gravity="center_vertical"
+                android:text="소속"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/made_aff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mapo"
+                android:gravity="center_vertical"
+                android:text="소속"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/made_img"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_weight="40"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical|right"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
