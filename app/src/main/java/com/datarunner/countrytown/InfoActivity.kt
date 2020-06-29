@@ -1,4 +1,4 @@
-package com.DataRunner.CountryTown
+package com.datarunner.countrytown
 
 import android.os.Bundle
 import androidx.annotation.UiThread
@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
-import kotlinx.android.synthetic.main.info_layout.*
 
 class InfoActivity : FragmentActivity(), OnMapReadyCallback {
     private var dataList = arrayListOf<Data>()

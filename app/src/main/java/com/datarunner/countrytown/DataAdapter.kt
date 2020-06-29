@@ -1,4 +1,4 @@
-package com.DataRunner.CountryTown
+package com.datarunner.countrytown
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.DataRunner.CountryTown" >
+    package="com.datarunner.countrytown" >
 
     <!--인터넷 접근-->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".SplashActivity"
+            android:name="com.datarunner.countrytown.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,12 +24,12 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.datarunner.countrytown.MainActivity"
             android:label="@string/app_name"></activity>
-        <activity android:name=".LicenseActivity" android:parentActivityName=".MainActivity" />
-        <activity android:name=".MakerActivity" android:parentActivityName=".MainActivity" />
-        <activity android:name=".Detail" android:parentActivityName=".MainActivity" />
-        <activity android:name=".InfoActivity" android:parentActivityName=".MainActivity" />
+        <activity android:name="com.datarunner.countrytown.LicenseActivity" android:parentActivityName="com.datarunner.countrytown.MainActivity" />
+        <activity android:name="com.datarunner.countrytown.MakerActivity" android:parentActivityName="com.datarunner.countrytown.MainActivity" />
+        <activity android:name="com.datarunner.countrytown.Detail" android:parentActivityName="com.datarunner.countrytown.MainActivity" />
+        <activity android:name="com.datarunner.countrytown.InfoActivity" android:parentActivityName="com.datarunner.countrytown.MainActivity" />
     </application>
 
 </manifest>

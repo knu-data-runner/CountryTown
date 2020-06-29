@@ -1,4 +1,4 @@
-package com.DataRunner.CountryTown.WeatherRecieveData
+package com.datarunner.countrytown.WeatherRecieveData
 
 import retrofit2.Call
 import retrofit2.http.GET

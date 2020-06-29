@@ -1,4 +1,4 @@
-package com.DataRunner.CountryTown
+package com.datarunner.countrytown
 
 import android.content.Intent
 import android.net.Uri

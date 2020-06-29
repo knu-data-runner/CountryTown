@@ -1,18 +1,16 @@
-package com.DataRunner.CountryTown
+package com.datarunner.countrytown
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
 import androidx.fragment.app.FragmentActivity
-import com.DataRunner.CountryTown.WeatherRecieveData.Item
-import com.DataRunner.CountryTown.WeatherRecieveData.Result
-import com.DataRunner.CountryTown.WeatherRecieveData.WeatherAPI
+import com.datarunner.countrytown.WeatherRecieveData.Item
+import com.datarunner.countrytown.WeatherRecieveData.Result
+import com.datarunner.countrytown.WeatherRecieveData.WeatherAPI
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage

@@ -1,4 +1,4 @@
-package com.DataRunner.CountryTown
+package com.datarunner.countrytown
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

@@ -1,6 +1,5 @@
-package com.DataRunner.CountryTown.WeatherRecieveData
+package com.datarunner.countrytown.WeatherRecieveData
 
-import android.content.ClipData
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

@@ -1,10 +1,7 @@
-package com.DataRunner.CountryTown
+package com.datarunner.countrytown
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.main_toolbar.*
 
 class LicenseActivity : AppCompatActivity() {
 
