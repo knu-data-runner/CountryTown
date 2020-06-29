@@ -68,43 +68,8 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         program_content.text = content
         addr.text = address
         latlan = LatLng(lat, lon)
-        call.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:" + number)
-            startActivity(intent)
-        }
-        like.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:" + number)
-            startActivity(intent)
-        }
-        share.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_SUBJECT, "이 체험 마을 어때?\n");
-            intent.putExtra(Intent.EXTRA_TEXT, link);
-            startActivity(Intent.createChooser(intent, "이 체험 마을 어때?\n"))
-        }
-        val storage = Firebase.storage
-        var storageRef = storage.reference
-        storageRef.child("img/town/" + townId + "_2.png").downloadUrl.addOnSuccessListener {
-            // Got the download URL for 'users/me/profile.png'
-            Glide.with(this)
-                .load(it)
-                .into(detail_img)
-        }.addOnFailureListener {
-            // Handle any errors
-            storageRef.child("img/town/" + townId + "_2.PNG").downloadUrl.addOnSuccessListener {
-                Glide.with(this)
-                    .load(it)
-                    .into(detail_img)
-            }
-        }
-        registration_button.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(link)
-            startActivity(intent)
-        }
+        setClickListener(number, link)
+        loadImage(townId)
 
         // Map
         val fm = supportFragmentManager
@@ -128,6 +93,48 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val marker = Marker()
         marker.position = latlan
         marker.map = naverMap
+    }
+
+    private fun loadImage(townId:String) {
+        val storage = Firebase.storage
+        var storageRef = storage.reference
+        storageRef.child("img/town/" + townId + "_2.png").downloadUrl.addOnSuccessListener {
+            // Got the download URL for 'users/me/profile.png'
+            Glide.with(this)
+                .load(it)
+                .into(detail_img)
+        }.addOnFailureListener {
+            // Handle any errors
+            storageRef.child("img/town/" + townId + "_2.PNG").downloadUrl.addOnSuccessListener {
+                Glide.with(this)
+                    .load(it)
+                    .into(detail_img)
+            }
+        }
+    }
+
+    private fun setClickListener(number:String, link:String) {
+        val call = fun() {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:" + number)
+            startActivity(intent)
+        }
+        val share = fun() {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, "이 체험 마을 어때?\n");
+            intent.putExtra(Intent.EXTRA_TEXT, link);
+            startActivity(Intent.createChooser(intent, "이 체험 마을 어때?\n"))
+        }
+        call_layout.setOnClickListener {call()}
+        call_button.setOnClickListener {call()}
+        share_layout.setOnClickListener {share()}
+        share_button.setOnClickListener {share()}
+        registration_button.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(link)
+            startActivity(intent)
+        }
     }
 
     private fun setWeather(wt:WeathersTemperatures) {
@@ -156,6 +163,14 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun weather(gridX: Int, gridY: Int) {
+        fun createOkHttpClient(): OkHttpClient? {
+            val builder = OkHttpClient.Builder()
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            builder.addInterceptor(interceptor)
+            return builder.build()
+        }
+
         val current = LocalDateTime.now().minus(Duration.ofHours(1))
         val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
         val timeFormatter = DateTimeFormatter.ofPattern("HHMM")
@@ -201,14 +216,6 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
     internal class WeathersTemperatures {
         var weathers = "0"
         var temperatures = "18"
-    }
-
-    private fun createOkHttpClient(): OkHttpClient? {
-        val builder = OkHttpClient.Builder()
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        builder.addInterceptor(interceptor)
-        return builder.build()
     }
 
     private fun getSecret(provider:String, keyArg:String): String {
