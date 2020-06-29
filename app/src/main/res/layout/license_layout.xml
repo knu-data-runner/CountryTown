@@ -26,54 +26,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/mapo"
-            android:text="안드로이드"
-            android:textSize="23sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/mapo"
-            android:text="https://source.android.google.cn/setup/start/licenses?hl=ko\n
-Android 소프트웨어에는 Apache 2.0 라이선스가 부여됩니다.\n
-본 프로젝트를 진행하면서 기본 라이선스를 준수하기 위해 노력하겠지만, 예외로 처리되는 사례가 있을 수 있습니다.\n
-예를 들어 Linux 커널 패치에는 kernel.org에서 확인할 수 있는 시스템 예외가 포함된 GPLv2 라이선스가 적용됩니다.\n
-AOSP에 아이디어, 코드 또는 문서를 기여하는 모든 개인 기여자(자신을 위해서만 기여하는 자)는 개인 기여자 라이선스 계약을 작성하고 서명한 다음 제출해야 합니다.\n
-코드 검토 도구를 통해 온라인으로 계약을 체결할 수 있습니다.\n
-이 계약은 AOSP에 지적 재산을 기여하는 조건을 명확하게 정의합니다.\n
-이 라이선스는 프로젝트의 보호와 기여자로서의 보호를 위한 것이며 기여를 다른 목적으로 사용하기 위해 권리를 변경하지 않습니다.\n
-AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기업 기여자 라이선스 계약을 사용할 수 있습니다.\n
-이 계약 버전을 통해 기업은 지정된 직원이 제출하는 기여를 승인하고 저작권 및 특허 라이선스를 부여할 수 있습니다."
-            android:textSize="15sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/mapo"
-            android:text="마포금빛나루체"
-            android:textSize="23sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/mapo"
-            android:text="https://www.mapo.go.kr/site/main/content/mapo04010201\n
-마포 브랜드 서체의 지적 재산권은 마포구에 있습니다.\n
-마포 브랜드 서체는 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공됩니다. 단, 출처는 표시하여야 합니다.\n
-마포 브랜드 서체는 인쇄물, 광고물, 온라인 등 상업적 목적으로 사용할 수 있습니다. 단, 유료로 판매하는 것은 금지합니다.\n
-마포 브랜드 서체를 사용한 인쇄물, 광고물(온라인 포함)의 이미지는 마포구 프로모션을 위해 활용될 수 있습니다. 이를 원치 않는 사용자는 언제든지 마포구에 요청할 수 있습니다."
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/mapo"
             android:text="농림축산식품 공공데이터 api"
@@ -101,7 +54,7 @@ AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기�
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textSize="23sp"
             android:textStyle="bold"
@@ -112,15 +65,15 @@ AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기�
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="15sp"
             android:fontFamily="@font/mapo"
             android:text="https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15057682\n
 공공데이터란 공공기관이 만들어내는 모든 자료나 정보, 국민 모두의 소통과 협력을 이끌어내는 공적인 정보를 말합니다.\n
-각 공공기관이 보유한 공공데이터 목록과 국민에게 개방할 수 있는 공공데이터를 포털에 등록하면 모두가 공유할 수 있는 양질의 공공데이터로 재탄생하게 됩니다." />
+각 공공기관이 보유한 공공데이터 목록과 국민에게 개방할 수 있는 공공데이터를 포털에 등록하면 모두가 공유할 수 있는 양질의 공공데이터로 재탄생하게 됩니다."
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textSize="23sp"
             android:textStyle="bold"
@@ -138,24 +91,7 @@ AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기�
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/mapo"
-            android:text="어플 아이콘" />
-
-        <TextView
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textSize="15sp"
-            android:fontFamily="@font/mapo"
-            android:text="https://kor.pngtree.com/so/%EC%A7%91-%EC%95%84%EC%9D%B4%EC%BD%98" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:textSize="23sp"
             android:textStyle="bold"
@@ -169,6 +105,70 @@ AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기�
             android:textSize="15sp"
             android:fontFamily="@font/mapo"
             android:text="https://gist.github.com/fronteer-kr/14d7f779d52a21ac2f16" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/mapo"
+            android:text="안드로이드"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/mapo"
+            android:text="https://source.android.google.cn/setup/start/licenses?hl=ko\n
+Android 소프트웨어에는 Apache 2.0 라이선스가 부여됩니다.\n
+본 프로젝트를 진행하면서 기본 라이선스를 준수하기 위해 노력하겠지만, 예외로 처리되는 사례가 있을 수 있습니다.\n
+예를 들어 Linux 커널 패치에는 kernel.org에서 확인할 수 있는 시스템 예외가 포함된 GPLv2 라이선스가 적용됩니다.\n
+AOSP에 아이디어, 코드 또는 문서를 기여하는 모든 개인 기여자(자신을 위해서만 기여하는 자)는 개인 기여자 라이선스 계약을 작성하고 서명한 다음 제출해야 합니다.\n
+코드 검토 도구를 통해 온라인으로 계약을 체결할 수 있습니다.\n
+이 계약은 AOSP에 지적 재산을 기여하는 조건을 명확하게 정의합니다.\n
+이 라이선스는 프로젝트의 보호와 기여자로서의 보호를 위한 것이며 기여를 다른 목적으로 사용하기 위해 권리를 변경하지 않습니다.\n
+AOSP를 사용하는 직원은 기업(또는 기타 법인)에 제공되는 기업 기여자 라이선스 계약을 사용할 수 있습니다.\n
+이 계약 버전을 통해 기업은 지정된 직원이 제출하는 기여를 승인하고 저작권 및 특허 라이선스를 부여할 수 있습니다."
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/mapo"
+            android:text="마포금빛나루체"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/mapo"
+            android:text="https://www.mapo.go.kr/site/main/content/mapo04010201\n
+마포 브랜드 서체의 지적 재산권은 마포구에 있습니다.\n
+마포 브랜드 서체는 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공됩니다. 단, 출처는 표시하여야 합니다.\n
+마포 브랜드 서체는 인쇄물, 광고물, 온라인 등 상업적 목적으로 사용할 수 있습니다. 단, 유료로 판매하는 것은 금지합니다.\n
+마포 브랜드 서체를 사용한 인쇄물, 광고물(온라인 포함)의 이미지는 마포구 프로모션을 위해 활용될 수 있습니다. 이를 원치 않는 사용자는 언제든지 마포구에 요청할 수 있습니다."
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/mapo"
+            android:text="어플 아이콘" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/mapo"
+            android:text="https://kor.pngtree.com/so/%EC%A7%91-%EC%95%84%EC%9D%B4%EC%BD%98" />
 
     </LinearLayout>
     </ScrollView>
