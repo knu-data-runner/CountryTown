@@ -50,8 +50,13 @@ dependencies {
     // Third party
     implementation('com.naver.maps:map-sdk:3.8.0') // 네이버 지도 SDK
     implementation 'com.google.code.gson:gson:2.8.5' // gson
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0' // retrofit2
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0' // retrofit gson convert
     implementation 'com.github.bumptech.glide:glide:4.9.0' // glide
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0' // glide
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1' // okhttp3
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1' // okhttp3
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1' // okhttp3
 }
 
 //url 이미지
