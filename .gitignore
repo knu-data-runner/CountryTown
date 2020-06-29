@@ -5,6 +5,7 @@
 ### Custom ###
 secret.json
 google-services.json
+release/
 
 ### Kotlin ###
 # Compiled class file
