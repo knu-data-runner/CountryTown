@@ -6,12 +6,17 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
 import androidx.fragment.app.FragmentActivity
+import com.DataRunner.CountryTown.WeatherRecieveData.Item
+import com.DataRunner.CountryTown.WeatherRecieveData.Result
+import com.DataRunner.CountryTown.WeatherRecieveData.WeatherAPI
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.google.gson.GsonBuilder
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapFragment
@@ -19,12 +24,14 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import kotlinx.android.synthetic.main.detail_layout.*
-import org.json.JSONArray
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -74,9 +81,9 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         share.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_SUBJECT, "이 마을 공유하기");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "이 체험 마을 어때?\n");
             intent.putExtra(Intent.EXTRA_TEXT, link);
-            startActivity(Intent.createChooser(intent, "이 마을 공유하기"))
+            startActivity(Intent.createChooser(intent, "이 체험 마을 어때?\n"))
         }
         val storage = Firebase.storage
         var storageRef = storage.reference
@@ -111,7 +118,19 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         val grid = convertGpsToGrid(TO_GRID, lat, lon)
         val gridX = grid.x.toInt()
         val gridY = grid.y.toInt()
-        val wt = parsing(gridX, gridY)
+        weather(gridX, gridY)
+    }
+
+    @UiThread
+    override fun onMapReady(naverMap: NaverMap) {
+        naverMap.cameraPosition = CameraPosition(latlan, 6.0)
+
+        val marker = Marker()
+        marker.position = latlan
+        marker.map = naverMap
+    }
+
+    private fun setWeather(wt:WeathersTemperatures) {
         val weathers = wt.weathers // 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
         val temperatures = wt.temperatures
         var weatherDescription = "이 마을의 현재 날씨는\n"
@@ -135,134 +154,61 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
         weather_description.text = weatherDescription
     }
 
-    @UiThread
-    override fun onMapReady(naverMap: NaverMap) {
-        naverMap.cameraPosition = CameraPosition(latlan, 6.0)
-
-        val marker = Marker()
-        marker.position = latlan
-        marker.map = naverMap
-    }
-
-    //위도, 경도 -> GRID X좌표, Y좌표 변환
-    private fun convertGpsToGrid(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
-        val RE = 6371.00877 // 지구 반경(km)
-        val GRID = 5.0 // 격자 간격(km)
-        val SLAT1 = 30.0 // 투영 위도1(degree)
-        val SLAT2 = 60.0 // 투영 위도2(degree)
-        val OLON = 126.0 // 기준점 경도(degree)
-        val OLAT = 38.0 // 기준점 위도(degree)
-        val XO = 43.0 // 기준점 X좌표(GRID)
-        val YO = 136.0 // 기준점 Y좌표(GRID)
-
-        // LCC DFS 좌표변환 ( code : "TO_GRID"(위경도->좌표, lat_X:위도,  lng_Y:경도), "TO_GPS"(좌표->위경도,  lat_X:x, lng_Y:y) )
-        val DEGRAD = Math.PI / 180.0
-        val RADDEG = 180.0 / Math.PI
-        val re = RE / GRID
-        val slat1 = SLAT1 * DEGRAD
-        val slat2 = SLAT2 * DEGRAD
-        val olon = OLON * DEGRAD
-        val olat = OLAT * DEGRAD
-        var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5)
-        sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn)
-        var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5)
-        sf = Math.pow(sf, sn) * Math.cos(slat1) / sn
-        var ro = Math.tan(Math.PI * 0.25 + olat * 0.5)
-        ro = re * sf / Math.pow(ro, sn)
-        val rs = LatXLngY()
-        if (mode == TO_GRID) {
-            rs.lat = lat_X
-            rs.lng = lng_Y
-            var ra = Math.tan(Math.PI * 0.25 + lat_X * DEGRAD * 0.5)
-            ra = re * sf / Math.pow(ra, sn)
-            var theta = lng_Y * DEGRAD - olon
-            if (theta > Math.PI) theta -= 2.0 * Math.PI
-            if (theta < -Math.PI) theta += 2.0 * Math.PI
-            theta *= sn
-            rs.x = Math.floor(ra * Math.sin(theta) + XO + 0.5)
-            rs.y = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5)
-        } else {
-            rs.x = lat_X
-            rs.y = lng_Y
-            val xn = lat_X - XO
-            val yn = ro - lng_Y + YO
-            var ra = Math.sqrt(xn * xn + yn * yn)
-            if (sn < 0.0) {
-                ra = -ra
-            }
-            var alat = Math.pow(re * sf / ra, 1.0 / sn)
-            alat = 2.0 * Math.atan(alat) - Math.PI * 0.5
-            var theta = 0.0
-            if (Math.abs(xn) <= 0.0) {
-                theta = 0.0
-            } else {
-                if (Math.abs(yn) <= 0.0) {
-                    theta = Math.PI * 0.5
-                    if (xn < 0.0) {
-                        theta = -theta
-                    }
-                } else theta = Math.atan2(xn, yn)
-            }
-            val alon = theta / sn + olon
-            rs.lat = alat * RADDEG
-            rs.lng = alon * RADDEG
-        }
-        return rs
-    }
-
-    internal class LatXLngY {
-        var lat = 0.0
-        var lng = 0.0
-        var x = 0.0
-        var y = 0.0
-    }
-
-    /**
-     * 파싱하는 함수
-     */
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun parsing(gridX: Int, gridY: Int): WeathersTemperatures {
-
-        // Web 통신
-        StrictMode.enableDefaults()
-
+    private fun weather(gridX: Int, gridY: Int) {
         val current = LocalDateTime.now().minus(Duration.ofHours(1))
         val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
         val timeFormatter = DateTimeFormatter.ofPattern("HHMM")
         val dateFormatted = current.format(dateFormatter)
         val timeFormatted = current.format(timeFormatter)
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://apis.data.go.kr/")
+            .client(createOkHttpClient()) // debug
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        val weatherApi = retrofit.create(WeatherAPI::class.java)
+        val callApi = weatherApi.getResponse(
+            getSecret("weather", "KEY"),
+            dateFormatted,
+            timeFormatted,
+            gridX.toString(),
+            gridY.toString()
+        )
 
-        val loadPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE)
-        val keyUrl ="http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst?serviceKey="
-        val dataUrl = "&pageNo=1&numOfRows=20&dataType=json&base_date="
-        val timeUrl = "&base_time="
-        val xUrl = "&nx="
-        val yUrl = "&ny="
-
-        val allUrl = keyUrl + getSecret("weather", "KEY") +
-                dataUrl + dateFormatted + timeUrl + timeFormatted + xUrl + gridX.toString() + yUrl + gridY.toString()
-        val weatherStream = URL(allUrl).openConnection() as HttpURLConnection
-        var weatherRead = BufferedReader(InputStreamReader(weatherStream.inputStream, "UTF-8"))
-        val weatherResponse = weatherRead.readLine()
-        val response = JSONObject(JSONObject(weatherResponse).getString("response"))
-        val items = JSONArray(JSONObject(JSONObject(response.getString("body")).getString("items")).getString("item"))
         val wt = WeathersTemperatures()
-
-        for (i in 0 until items.length()) {
-            val obj = items.getJSONObject(i)
-            val categorys = obj.getString("category")
-            if(categorys.equals("PTY"))
-                wt.weathers = obj.getString("obsrValue")
-            if(categorys.equals("T1H"))
-                wt.temperatures = obj.getString("obsrValue")
-        }
-
-        return wt
+        callApi.enqueue(object: Callback<Result> {
+            override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                val itemList: List<Item> = response.body()!!.response!!.body!!.items!!.item!!
+                for (item in itemList) {
+                    val categorys = item.category
+                    if(categorys.equals("PTY"))
+                        wt.weathers = item.obsrValue.toString()
+                    if(categorys.equals("T1H"))
+                        wt.temperatures = item.obsrValue.toString()
+                }
+                setWeather(wt)
+            }
+            override fun onFailure(call: Call<Result>, t: Throwable) {
+                Log.d("Call Failed", t.toString())
+                setWeather(wt)
+            }
+        })
     }
 
     internal class WeathersTemperatures {
-        var weathers = ""
-        var temperatures = ""
+        var weathers = "0"
+        var temperatures = "18"
+    }
+
+    private fun createOkHttpClient(): OkHttpClient? {
+        val builder = OkHttpClient.Builder()
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        builder.addInterceptor(interceptor)
+        return builder.build()
     }
 
     private fun getSecret(provider:String, keyArg:String): String {
