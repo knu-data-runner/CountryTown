@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:gravity ="center"
             android:fillViewport="true"
-            android:background="@drawable/background_img_2"
+            android:background="@drawable/background_img_02"
             android:layout_marginTop="0dp">
 
             <LinearLayout
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/background_detail01"
+                    android:background="@drawable/background_detail_01"
                     android:orientation="horizontal">
                     <LinearLayout
                         android:id="@+id/call_layout"
@@ -143,7 +143,7 @@
                         android:layout_height="300dp"
                         android:layout_gravity="center_horizontal"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_launcher_background"/>
+                        android:src="@drawable/loading_spinningwheel"/>
 
                     <fragment
                         android:id="@+id/map"
@@ -165,7 +165,7 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_favorite_border_24px"/>
+                        android:src="@drawable/loading_spinningwheel"/>
 
                     <TextView
                         android:id="@+id/weather_description"
@@ -174,7 +174,7 @@
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
                         android:textSize="25sp"
-                        android:text="맑음 18℃" />
+                        android:text="마을 날씨 정보 수신중.." />
                 </LinearLayout>
 
                 <LinearLayout

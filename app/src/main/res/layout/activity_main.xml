@@ -25,7 +25,7 @@
                 android:layout_weight="75"
                 android:text="지금 보고 계신 지역은"
                 android:textStyle="bold"
-                android:background="@drawable/background_img_2"
+                android:background="@drawable/background_img_02"
                 android:gravity="center_vertical|center_horizontal"
                 android:fontFamily = "@font/mapo"
                 android:textSize="25sp" />
@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="25"
-                android:background="@drawable/background_img_2"
+                android:background="@drawable/background_img_02"
                 android:gravity="center_vertical|center_horizontal"
                 android:fontFamily = "@font/mapo"
                 android:text="전국"

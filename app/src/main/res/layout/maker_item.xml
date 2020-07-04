@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true"
         app:cardElevation="5dp"
@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="200dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="60"
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
@@ -119,7 +119,7 @@
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical|right"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/loading_spinningwheel"
             tools:ignore="MissingConstraints" />
 
     </androidx.cardview.widget.CardView>

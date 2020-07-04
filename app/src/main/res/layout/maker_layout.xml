@@ -10,7 +10,7 @@
             android:id="@+id/madeBy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_img_2">
+            android:background="@drawable/background_img_02">
         </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

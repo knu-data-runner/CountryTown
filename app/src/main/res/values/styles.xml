@@ -26,7 +26,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
-        <item name="android:popupBackground">@drawable/background_img_2</item>
+        <item name="android:popupBackground">@drawable/background_img_02</item>
         <item name="android:textColor">#FF01F0</item>
         <item name="android:textSize">12dp</item>
     </style>
