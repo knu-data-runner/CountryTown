@@ -2,12 +2,12 @@ package com.DataRunner.CountryTown
 
 import android.os.Bundle
 import androidx.annotation.UiThread
-import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 
-class InfoActivity : FragmentActivity(), OnMapReadyCallback {
+class InfoActivity : AppCompatActivity(), OnMapReadyCallback {
     private var dataList = arrayListOf<Data>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

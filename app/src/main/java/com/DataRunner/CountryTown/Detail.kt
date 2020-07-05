@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
-import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.DataRunner.CountryTown.WeatherRecieveData.Item
 import com.DataRunner.CountryTown.WeatherRecieveData.Result
 import com.DataRunner.CountryTown.WeatherRecieveData.WeatherAPI
@@ -34,8 +34,7 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
-class Detail : FragmentActivity(), OnMapReadyCallback {
+class Detail : AppCompatActivity(), OnMapReadyCallback {
     private var latlan: LatLng = LatLng(0.0, 0.0)
     var TO_GRID = 0
     var TO_GPS = 1
@@ -224,7 +223,7 @@ class Detail : FragmentActivity(), OnMapReadyCallback {
 
     internal class WeathersTemperatures {
         var weathers = "0"
-        var temperatures = "18"
+        var temperatures = "29"
     }
 
     private fun getSecret(provider:String, keyArg:String): String {

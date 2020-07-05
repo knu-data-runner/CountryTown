@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        parsing()
+        dataList = parsing()
 
         val clickListener = View.OnClickListener { view ->
             when (view.id) {
@@ -51,45 +51,46 @@ class MainActivity : AppCompatActivity() {
         var popupMenu = PopupMenu(this, view)
         var inflater = popupMenu.menuInflater
         inflater.inflate(R.menu.popup_menu, popupMenu.menu)
-        dataList = arrayListOf<Data>()
+        dataList.clear()
         popupMenu.show()
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.all -> {
                     btn.text = "전국"
-                    parsing("전국")
+                    dataList = parsing("전국")
                 }
                 R.id.sudo -> {
                     btn.text = "수도권"
-                    parsing("수도")
+                    dataList = parsing("수도")
                 }
                 R.id.kangwon -> {
                     btn.text = "강원권"
-                    parsing("강원")
+                    dataList = parsing("강원")
                 }
                 R.id.chung -> {
                     btn.text = "충청권"
-                    parsing("충청")
+                    dataList = parsing("충청")
                 }
                 R.id.jeon -> {
                     btn.text = "전라권"
-                    parsing("전라")
+                    dataList = parsing("전라")
                 }
                 R.id.kyung -> {
                     btn.text = "경상권"
-                    parsing("경상")
+                    dataList = parsing("경상")
                 }
                 R.id.jeju -> {
                     btn.text = "제주도"
-                    parsing("제주")
+                    dataList = parsing("제주")
                 }
             }
             true
         }
     }
 
-    private fun parsing(checkSido : String = "전국") {
-        val dataAdapter = DataAdapter(this, dataList) { data ->
+    private fun parsing(checkSido : String = "전국"): ArrayList<Data> {
+        var ret = arrayListOf<Data>()
+        val dataAdapter = DataAdapter(this, ret) { data ->
             val toDetailIntent = Intent(this, Detail::class.java)
             val b = Bundle()
             b.putParcelable("parceledData", data)
@@ -140,16 +141,15 @@ class MainActivity : AppCompatActivity() {
                         obj.getString("데이터기준일자"),
                         obj.getString("일련번호")
                     )
-                    dataList.add(listLine)
+                    ret.add(listLine)
                 }
             }
         } catch (e: Exception) {
             val listLine = Data(e.toString(), "오류", "오류","오류", "오류", "오류", "오류", "오류", "오류", "오류", 0.0, 0.0,  "오류", "오류")
-            dataList.add(listLine)
+            ret.add(listLine)
         }
+        return ret
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -165,7 +165,9 @@ class MainActivity : AppCompatActivity() {
 
             R.id.action_info -> {
                 val intent = Intent(this, InfoActivity :: class.java)
-                intent.putExtra("dataList", dataList)
+                val res = parsing("전국")
+                intent.putExtra("test", dataList)
+                intent.putExtra("dataList", res)
                 startActivity(intent)
                 return true
             }
