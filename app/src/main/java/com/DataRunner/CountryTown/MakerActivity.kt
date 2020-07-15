@@ -13,19 +13,20 @@ import org.json.JSONArray
 class MakerActivity : AppCompatActivity() {
 
     private var makerList = arrayListOf<MakerData>()
+    private val utils = Utils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.maker_layout)
 
-        parsing()
+        getMakers()
     }
 
-    private fun parsing() {
+    private fun getMakers() {
         val madeByAdapter =  MakerAdapter(this, makerList) { maker ->
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:") // only email apps should handle this
-                putExtra(Intent.EXTRA_EMAIL, maker.makerEmail)
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(maker.makerEmail))
                 putExtra(Intent.EXTRA_SUBJECT, "문의드립니다.")
             }
             if (intent.resolveActivity(packageManager) != null) {
@@ -42,9 +43,7 @@ class MakerActivity : AppCompatActivity() {
         //start
         StrictMode.enableDefaults()
         try {
-            val assetManager = resources.assets
-            val inputStream = assetManager.open("made.json")
-            val jsonString = inputStream.bufferedReader().use { it.readText() }
+            val jsonString = utils.loadData(this, "maker")
             val jArray = JSONArray(jsonString)
 
             // 모든 공지 noticeList 에 저장

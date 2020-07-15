@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.more.MoreFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity ="center"
+        android:fillViewport="true"
+        android:background="@drawable/background_img_02"
+        android:layout_marginTop="0dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp" >
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:textSize="20sp"
+                android:text="무슨어플인가요?" />
+
+            <TextView
+                android:id="@+id/license"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:textSize="20sp"
+                android:text="라이센스" />
+
+            <TextView
+                android:id="@+id/maker"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:textSize="20sp"
+                android:text="만든이" />
+
+            <TextView
+                android:id="@+id/review"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:textSize="20sp"
+                android:text="리뷰 남기기" />
+
+            <TextView
+                android:id="@+id/contact"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:textSize="20sp"
+                android:text="개발자에게 연락하기" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

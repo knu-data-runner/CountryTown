@@ -8,7 +8,7 @@ import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 
 class InfoActivity : AppCompatActivity(), OnMapReadyCallback {
-    private var dataList = arrayListOf<Data>()
+    private var dataList = arrayListOf<Town>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.info_layout)
