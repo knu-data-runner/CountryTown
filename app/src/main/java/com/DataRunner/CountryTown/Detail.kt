@@ -125,19 +125,21 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         val share = fun() {
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_SUBJECT, "이 체험 마을 어때?\n");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "이 체험 마을 어때요?");
             intent.putExtra(Intent.EXTRA_TEXT, link);
-            startActivity(Intent.createChooser(intent, "이 체험 마을 어때?\n"))
+            startActivity(Intent.createChooser(intent, "이 체험 마을 어때요?"))
+        }
+        val web = fun() {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(link)
+            startActivity(intent)
         }
         call_layout.setOnClickListener {call()}
         call_button.setOnClickListener {call()}
         share_layout.setOnClickListener {share()}
         share_button.setOnClickListener {share()}
-        registration_button.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(link)
-            startActivity(intent)
-        }
+        web_layout.setOnClickListener {web()}
+        web_button.setOnClickListener {web()}
     }
 
     private fun setWeather(wt:WeathersTemperatures) {

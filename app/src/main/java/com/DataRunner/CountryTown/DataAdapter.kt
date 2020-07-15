@@ -1,18 +1,18 @@
 package com.DataRunner.CountryTown
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.DataRunner.CountryTown.ui.home.HomeFragment
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
 class DataAdapter(
-    val context: Context,               // MainActivity
+    val context: HomeFragment,          // HomeFragment
     val dataList: ArrayList<Data>,      // Data 객체 list
     val itemClick: (Data) -> Unit)      // Data 객체 클릭시 실행되는 lambda 식
     : RecyclerView.Adapter<DataAdapter.Holder>() {
@@ -30,7 +30,7 @@ class DataAdapter(
         val dataprogramContent = itemView.findViewById<TextView>(R.id.programContent)
         val dataImg = itemView.findViewById<ImageView>(R.id.main_img)
 
-        fun bind (data: Data, context: Context) {
+        fun bind (data: Data, context: HomeFragment) {
             dataSido.text = data.sido
             dataTitle.text = data.title
             dataprogramType.text = data.programType
@@ -67,7 +67,7 @@ class DataAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         /* LayoutInflater는 item을 Adapter에서 사용할 View로 부풀려주는(inflate) 역할을 한다. */
-        val view: View = LayoutInflater.from(context).inflate(R.layout.data_item, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.data_item, parent, false)
         return Holder(view, itemClick)
     }
 

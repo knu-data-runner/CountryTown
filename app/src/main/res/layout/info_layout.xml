@@ -39,7 +39,6 @@
                         android:text="컨츄리타운은 무슨 어플인가요?"
                         android:gravity="center_vertical"
                         android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/mapo"
                         android:textSize="25sp" />
                     <TextView
                         android:id="@+id/app_description1"
@@ -48,7 +47,6 @@
                         android:layout_marginBottom="5dp"
                         android:text="컨츄리타운은 한국농어촌공사의 공공데이터인 '농촌체험휴양마을' 정보를 받아옵니다."
                         android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/mapo"
                         android:textSize="17sp" />
                     <TextView
                         android:id="@+id/app_description2"
@@ -57,7 +55,6 @@
                         android:layout_marginBottom="10dp"
                         android:text="이를 바탕으로 도심의 시민들에게 \n한적한 휴양 마을을 소개하고 \n위치 확인 및 예약 수단을 제공하는 \n상생 플랫폼입니다."
                         android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/mapo"
                         android:textSize="17sp" />
 
                 </LinearLayout>
@@ -75,7 +72,6 @@
                         android:layout_marginBottom="10dp"
                         android:text="전국 1,000여 개의 마을 데이터베이스"
                         android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/mapo"
                         android:textSize="20sp" />
 
                     <fragment

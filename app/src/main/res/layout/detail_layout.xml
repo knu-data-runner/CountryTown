@@ -39,7 +39,6 @@
                         android:textSize="30sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/mapo"
                         android:text="강화군" />
 
                     <TextView
@@ -49,7 +48,6 @@
                         android:textSize="40sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/mapo"
                         android:text="체험마을A" />
                 </LinearLayout>
 
@@ -76,7 +74,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/mapo"
                             android:textSize="20sp"
                             android:lineSpacingMultiplier="1.3"
                             android:text="전화" />
@@ -98,10 +95,30 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/mapo"
                             android:textSize="20sp"
                             android:lineSpacingMultiplier="1.3"
                             android:text="공유" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/web_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical">
+                        <Button
+                            android:id="@+id/web_button"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/ic_public_black_24dp" />
+                        <TextView
+                            android:id="@+id/web_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="방문" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -115,7 +132,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/mapo"
                         android:textSize="25sp"
                         android:lineSpacingMultiplier="1.3"
                         android:text="프로그램타입" />
@@ -125,7 +141,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/mapo"
                         android:textSize="25sp"
                         android:lineSpacingMultiplier="1.3"
                         android:text="활동 내용" />
@@ -186,7 +201,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/mapo"
                         android:textSize="20sp"
                         android:lineSpacingMultiplier="1.3"
                         android:text="강원도 춘천시 가나다라마바사아자차카타파아" />
@@ -194,12 +208,12 @@
             </LinearLayout>
         </ScrollView>
         <Button
-            android:id="@+id/registration_button"
+            android:id="@+id/trip_guide_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/main_color"
             android:textStyle="bold"
-            android:text="더 보기" />
+            android:text="길 안내 시작" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

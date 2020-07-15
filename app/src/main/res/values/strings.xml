@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">컨츄리 타운</string>
+    <string name="title_home">홈</string>
+    <string name="title_search">검색</string>
+    <string name="title_arround">내 주변</string>
+    <string name="title_more">더 보기</string>
 </resources>
