@@ -25,7 +25,7 @@ class MakerActivity : AppCompatActivity() {
         val madeByAdapter =  MakerAdapter(this, makerList) { maker ->
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:") // only email apps should handle this
-                putExtra(Intent.EXTRA_EMAIL, maker.makerEmail)
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(maker.makerEmail))
                 putExtra(Intent.EXTRA_SUBJECT, "문의드립니다.")
             }
             if (intent.resolveActivity(packageManager) != null) {
@@ -43,7 +43,7 @@ class MakerActivity : AppCompatActivity() {
         StrictMode.enableDefaults()
         try {
             val assetManager = resources.assets
-            val inputStream = assetManager.open("made.json")
+            val inputStream = assetManager.open("maker.json")
             val jsonString = inputStream.bufferedReader().use { it.readText() }
             val jArray = JSONArray(jsonString)
 

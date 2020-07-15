@@ -35,6 +35,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class Detail : AppCompatActivity(), OnMapReadyCallback {
+    private val utils = Utils()
     private var latlan: LatLng = LatLng(0.0, 0.0)
     var TO_GRID = 0
     var TO_GPS = 1
@@ -77,7 +78,7 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         // Weather
-        val grid = convertGpsToGrid(TO_GRID, lat, lon)
+        val grid = utils.convertGpsToGrid(TO_GRID, lat, lon)
         val gridX = grid.x.toInt()
         val gridY = grid.y.toInt()
         weather(gridX, gridY)
