@@ -47,7 +47,7 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
 
         // Get variables
         val bundleData = intent.getBundleExtra("bundleData")
-        val parceledData = bundleData.getParcelable<Data>("parceledData")
+        val parceledData = bundleData.getParcelable<Town>("parceledData")
         val sigungu = parceledData?.sigungu
         val town = parceledData?.title
         val type = parceledData?.programType

@@ -13,8 +13,8 @@ import com.google.firebase.storage.ktx.storage
 
 class DataAdapter(
     val context: HomeFragment,          // HomeFragment
-    val dataList: ArrayList<Data>,      // Data 객체 list
-    val itemClick: (Data) -> Unit)      // Data 객체 클릭시 실행되는 lambda 식
+    val townList: ArrayList<Town>,      // Data 객체 list
+    val itemClick: (Town) -> Unit)      // Data 객체 클릭시 실행되는 lambda 식
     : RecyclerView.Adapter<DataAdapter.Holder>() {
 
     /**
@@ -22,7 +22,7 @@ class DataAdapter(
      * bind 가 자동 호출되며 데이터가 매핑된다.
      * @author jungwoo
      */
-    inner class Holder(itemView: View, itemClick: (Data) -> Unit) :
+    inner class Holder(itemView: View, itemClick: (Town) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val dataSido = itemView.findViewById<TextView>(R.id.sido)
         val dataTitle = itemView.findViewById<TextView>(R.id.title)
@@ -30,11 +30,11 @@ class DataAdapter(
         val dataprogramContent = itemView.findViewById<TextView>(R.id.programContent)
         val dataImg = itemView.findViewById<ImageView>(R.id.main_img)
 
-        fun bind (data: Data, context: HomeFragment) {
-            dataSido.text = data.sido
-            dataTitle.text = data.title
-            dataprogramType.text = data.programType
-            dataprogramContent.text = data.programContent
+        fun bind (town: Town, context: HomeFragment) {
+            dataSido.text = town.sido
+            dataTitle.text = town.title
+            dataprogramType.text = town.programType
+            dataprogramContent.text = town.programContent
 
             // Set loading image
             Glide.with(itemView)
@@ -44,20 +44,20 @@ class DataAdapter(
             // Set image
             val storage = Firebase.storage
             var storageRef = storage.reference
-            storageRef.child("img/town/" + data.townId + "_1.png").downloadUrl.addOnSuccessListener {
+            storageRef.child("img/town/" + town.townId + "_1.png").downloadUrl.addOnSuccessListener {
                 // Got the download URL for 'users/me/profile.png'
                 Glide.with(itemView)
                     .load(it)
                     .into(dataImg)
             }.addOnFailureListener {
                 // Handle any errors
-                storageRef.child("img/town/" + data.townId + "_1.PNG").downloadUrl.addOnSuccessListener {
+                storageRef.child("img/town/" + town.townId + "_1.PNG").downloadUrl.addOnSuccessListener {
                     Glide.with(itemView)
                         .load(it)
                         .into(dataImg)
                 }
             }
-            itemView.setOnClickListener { itemClick(data) }
+            itemView.setOnClickListener { itemClick(town) }
         }
     }
 
@@ -76,7 +76,7 @@ class DataAdapter(
      * @author jungwoo
      */
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(dataList[position], context)
+        holder.bind(townList[position], context)
     }
 
     /**
@@ -84,6 +84,6 @@ class DataAdapter(
      * @author jungwoo
      */
     override fun getItemCount(): Int {
-        return dataList.size
+        return townList.size
     }
 }

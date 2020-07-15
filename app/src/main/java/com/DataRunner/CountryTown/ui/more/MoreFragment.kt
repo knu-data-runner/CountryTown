@@ -24,7 +24,7 @@ class MoreFragment : Fragment() {
 
         val infoClickListener = View.OnClickListener { view ->
             val intent = Intent(activity, InfoActivity :: class.java)
-            val res = utils.parsing("전국")
+            val res = utils.parsing(container!!.context, "전국")
             intent.putExtra("dataList", res)
             startActivity(intent)
         }

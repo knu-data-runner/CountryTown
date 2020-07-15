@@ -1,12 +1,17 @@
 package com.DataRunner.CountryTown
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.StrictMode
 import android.util.Log
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
+import android.widget.Toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import org.json.JSONArray
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -36,24 +41,46 @@ class Utils() {
         return sb.toString()
     }
 
-    fun parsing(checkSido: String = "전국"): ArrayList<Data> {
-        var ret = arrayListOf<Data>()
+    fun saveData(context: Context, key: String) {
+        val rootRef = FirebaseDatabase.getInstance().reference
+        val myRef = rootRef.child(key)
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(dataSnapshot: DatabaseError) {
+                val t = Toast.makeText(context, "인터넷 접속이 원활하지 않습니다.", Toast.LENGTH_LONG)
+                t.show()
+            }
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var jsonArray = JSONArray()
+                for (singleTown in dataSnapshot.children) {
+                    var town = JSONObject()
+                    for (property in singleTown.children) {
+                        town.put(property.key, property.value.toString())
+                    }
+                    jsonArray.put(town)
+                }
+
+                val sharedPreferences: SharedPreferences = context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString(key, jsonArray.toString()).apply()
+            }
+        })
+    }
+
+    fun loadData(context: Context, key: String): String? {
+        val sharedPreferences =
+            context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        val data = sharedPreferences.getString(key, "")
+        return data
+    }
+
+    fun parsing(context: Context, checkSido: String = "전국"): ArrayList<Town> {
+        var ret = arrayListOf<Town>()
+        val jsonString = loadData(context, "town")
+        val jArray = JSONArray(jsonString)
 
         //start
         StrictMode.enableDefaults()
         try {
-            // get data.json
-            val storage = Firebase.storage
-            var storageRef = storage.reference
-            var jArray: JSONArray = JSONArray()
-            storageRef.child("assets/data.json").downloadUrl.addOnSuccessListener {
-                val jsonString: String = getJsonStrFromURL(it)
-                jArray = JSONArray(jsonString)
-                Log.d("jArray", jArray.toString())
-            }.addOnFailureListener {
-                Log.d("wwwwwwwwwwwwww", it.toString())
-            }
-
             // 모든 공지 noticeList 에 저장
             for (i in 0 until jArray.length()) {
 
@@ -68,7 +95,7 @@ class Utils() {
                     (sido == "광주광역시" && checkSido == "광주") ||
                     (sido == "울산광역시" && checkSido == "경상")
                 ) {
-                    val listLine = Data(
+                    val listLine = Town(
                         obj.getString("체험마을명"),
                         obj.getString("시도명"),
                         obj.getString("시군구명"),
@@ -88,7 +115,7 @@ class Utils() {
                 }
             }
         } catch (e: Exception) {
-            val listLine = Data(
+            val listLine = Town(
                 e.toString(),
                 "오류",
                 "오류",

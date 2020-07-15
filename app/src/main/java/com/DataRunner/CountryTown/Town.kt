@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Data(
+data class Town(
     val title: String,
     val sido: String,
     val sigungu: String,
