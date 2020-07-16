@@ -1,7 +1,10 @@
 package com.DataRunner.CountryTown
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import android.os.StrictMode
 import android.util.Log
@@ -17,6 +20,8 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Utils() {
@@ -73,8 +78,8 @@ class Utils() {
         return data
     }
 
-    fun parsing(context: Context, checkSido: String = "전국"): ArrayList<Town> {
-        var ret = arrayListOf<Town>()
+    fun parsing(context: Context, checkSido: String = "전국"): ArrayList<TownData> {
+        var ret = arrayListOf<TownData>()
         val jsonString = loadData(context, "town")
         val jArray = JSONArray(jsonString)
 
@@ -95,7 +100,7 @@ class Utils() {
                     (sido == "광주광역시" && checkSido == "광주") ||
                     (sido == "울산광역시" && checkSido == "경상")
                 ) {
-                    val listLine = Town(
+                    val listLine = TownData(
                         obj.getString("체험마을명"),
                         obj.getString("시도명"),
                         obj.getString("시군구명"),
@@ -109,13 +114,14 @@ class Utils() {
                         obj.getDouble("위도"),
                         obj.getDouble("경도"),
                         obj.getString("데이터기준일자"),
-                        obj.getString("일련번호")
+                        obj.getString("일련번호"),
+                        null
                     )
                     ret.add(listLine)
                 }
             }
         } catch (e: Exception) {
-            val listLine = Town(
+            val listLine = TownData(
                 e.toString(),
                 "오류",
                 "오류",
@@ -128,6 +134,7 @@ class Utils() {
                 "오류",
                 0.0,
                 0.0,
+                "오류",
                 "오류",
                 "오류"
             )
@@ -219,5 +226,31 @@ class Utils() {
         var lng = 0.0
         var x = 0.0
         var y = 0.0
+    }
+
+    // 위도, 경도 -> 주소 변환
+    fun getCurrentAddress(activity: Activity, latitude: Double, longitude: Double): String? {
+        val geocoder = Geocoder(activity, Locale.getDefault())
+        val addresses: List<Address>?
+        addresses = try {
+            geocoder.getFromLocation(
+                latitude,
+                longitude,
+                7
+            )
+        } catch (ioException: IOException) {
+            //네트워크 문제
+            Toast.makeText(activity, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show()
+            return "지오코더 서비스 사용불가"
+        } catch (illegalArgumentException: IllegalArgumentException) {
+            Toast.makeText(activity, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show()
+            return "잘못된 GPS 좌표"
+        }
+        if (addresses == null || addresses.size == 0) {
+            Toast.makeText(activity, "주소 미발견", Toast.LENGTH_LONG).show()
+            return "주소 미발견"
+        }
+        val address: Address = addresses[0]
+        return address.getAddressLine(0).toString() + "\n"
     }
 }

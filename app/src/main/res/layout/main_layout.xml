@@ -5,17 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/login_layout"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
-        android:layout_height = "match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/background_img_02">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/result"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
+            android:layout_height = "match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/background_img_02">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

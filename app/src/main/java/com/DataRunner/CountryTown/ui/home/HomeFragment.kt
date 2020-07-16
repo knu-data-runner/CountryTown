@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.DataRunner.CountryTown.Town
+import com.DataRunner.CountryTown.TownData
 import com.DataRunner.CountryTown.DataAdapter
 import com.DataRunner.CountryTown.Detail
 import com.DataRunner.CountryTown.Utils
@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var container: ViewGroup
-    private lateinit var townList: ArrayList<Town>
+    private lateinit var townDataList: ArrayList<TownData>
     private lateinit var root: View
     private val utils = Utils()
 
@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
 //        })
 
         this.container = container!!
-        this.townList = parse()
+        this.townDataList = parse()
 
         val clickListener = View.OnClickListener { view ->
             when (view.id) {
@@ -70,44 +70,44 @@ class HomeFragment : Fragment() {
         var popupMenu = PopupMenu(activity, view)   // activity: 부모 Activity(Context)
         var inflater = popupMenu.menuInflater
         inflater.inflate(R.menu.popup_menu, popupMenu.menu)
-        townList.clear()
+        townDataList.clear()
         popupMenu.show()
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.all -> {
                     btn.text = "전국"
-                    townList = parse("전국")
+                    townDataList = parse("전국")
                 }
                 R.id.sudo -> {
                     btn.text = "수도권"
-                    townList = parse("수도")
+                    townDataList = parse("수도")
                 }
                 R.id.kangwon -> {
                     btn.text = "강원권"
-                    townList = parse("강원")
+                    townDataList = parse("강원")
                 }
                 R.id.chung -> {
                     btn.text = "충청권"
-                    townList = parse("충청")
+                    townDataList = parse("충청")
                 }
                 R.id.jeon -> {
                     btn.text = "전라권"
-                    townList = parse("전라")
+                    townDataList = parse("전라")
                 }
                 R.id.kyung -> {
                     btn.text = "경상권"
-                    townList = parse("경상")
+                    townDataList = parse("경상")
                 }
                 R.id.jeju -> {
                     btn.text = "제주도"
-                    townList = parse("제주")
+                    townDataList = parse("제주")
                 }
             }
             true
         }
     }
 
-    private fun parse(checkSido : String = "전국"): ArrayList<Town> {
+    private fun parse(checkSido : String = "전국"): ArrayList<TownData> {
         val ret = utils.parsing(container!!.context, checkSido)
 
         val dataAdapter = DataAdapter(this, ret) { data ->
