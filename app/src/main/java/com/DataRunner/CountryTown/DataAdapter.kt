@@ -1,20 +1,21 @@
 package com.DataRunner.CountryTown
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.DataRunner.CountryTown.ui.home.HomeFragment
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
 class DataAdapter(
-    val context: HomeFragment,          // HomeFragment
-    val townList: ArrayList<Town>,      // Data 객체 list
-    val itemClick: (Town) -> Unit)      // Data 객체 클릭시 실행되는 lambda 식
+    val context: Fragment,                  // HomeFragment
+    val townDataList: ArrayList<TownData>,  // Data 객체 list
+    val itemClick: (TownData) -> Unit)      // Data 객체 클릭시 실행되는 lambda 식
     : RecyclerView.Adapter<DataAdapter.Holder>() {
 
     /**
@@ -22,19 +23,23 @@ class DataAdapter(
      * bind 가 자동 호출되며 데이터가 매핑된다.
      * @author jungwoo
      */
-    inner class Holder(itemView: View, itemClick: (Town) -> Unit) :
+    inner class Holder(itemView: View, itemClick: (TownData) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val dataSido = itemView.findViewById<TextView>(R.id.sido)
+        val dataSigungu = itemView.findViewById<TextView>(R.id.sigungu)
         val dataTitle = itemView.findViewById<TextView>(R.id.title)
         val dataprogramType = itemView.findViewById<TextView>(R.id.programType)
         val dataprogramContent = itemView.findViewById<TextView>(R.id.programContent)
+        val dataDistance = itemView.findViewById<TextView>(R.id.distance)
         val dataImg = itemView.findViewById<ImageView>(R.id.main_img)
 
-        fun bind (town: Town, context: HomeFragment) {
-            dataSido.text = town.sido
-            dataTitle.text = town.title
-            dataprogramType.text = town.programType
-            dataprogramContent.text = town.programContent
+        fun bind (townData: TownData, context: Fragment) {
+            dataSido.text = townData.sido
+            dataSigungu.text = townData.sigungu
+            dataTitle.text = townData.title
+            dataprogramType.text = townData.programType
+            dataprogramContent.text = townData.programContent
+            dataDistance.text = if (townData.distance == null) "" else townData.distance + "km | "
 
             // Set loading image
             Glide.with(itemView)
@@ -44,20 +49,20 @@ class DataAdapter(
             // Set image
             val storage = Firebase.storage
             var storageRef = storage.reference
-            storageRef.child("img/town/" + town.townId + "_1.png").downloadUrl.addOnSuccessListener {
+            storageRef.child("img/town/" + townData.townId + "_1.png").downloadUrl.addOnSuccessListener {
                 // Got the download URL for 'users/me/profile.png'
                 Glide.with(itemView)
                     .load(it)
                     .into(dataImg)
             }.addOnFailureListener {
                 // Handle any errors
-                storageRef.child("img/town/" + town.townId + "_1.PNG").downloadUrl.addOnSuccessListener {
+                storageRef.child("img/town/" + townData.townId + "_1.PNG").downloadUrl.addOnSuccessListener {
                     Glide.with(itemView)
                         .load(it)
                         .into(dataImg)
                 }
             }
-            itemView.setOnClickListener { itemClick(town) }
+            itemView.setOnClickListener { itemClick(townData) }
         }
     }
 
@@ -76,7 +81,7 @@ class DataAdapter(
      * @author jungwoo
      */
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(townList[position], context)
+        holder.bind(townDataList[position], context)
     }
 
     /**
@@ -84,6 +89,6 @@ class DataAdapter(
      * @author jungwoo
      */
     override fun getItemCount(): Int {
-        return townList.size
+        return townDataList.size
     }
 }

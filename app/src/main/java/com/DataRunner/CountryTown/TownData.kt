@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Town(
+data class TownData(
     val title: String,
     val sido: String,
     val sigungu: String,
@@ -18,5 +18,6 @@ data class Town(
     val lat: Double,
     val lon: Double,
     val dataVersion: String,
-    val townId: String
+    val townId: String,
+    var distance: String?
 ) : Parcelable

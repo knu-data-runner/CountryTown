@@ -8,69 +8,102 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true"
         app:cardElevation="5dp"
-        app:contentPaddingLeft="5dp"
         tools:ignore="MissingConstraints" >
 
         <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/sido"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <ImageView
+                    android:id="@+id/main_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/loading_spinningwheel" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="4dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="시도명" />
+                android:padding="10dp"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="4dp"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                tools:text="체험마을명입니다" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/sido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginRight="8dp"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        tools:text="시도명" />
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        tools:text="체험마을명입니다" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/programType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="4dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:text="만들기구분" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp">
+                    <TextView
+                        android:id="@+id/distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="21Km" />
+                    <TextView
+                        android:id="@+id/sigungu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="21Km" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/programContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:text="체험내용입니다.가나다" />
+                <TextView
+                    android:id="@+id/programType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="4dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="만들기구분" />
+
+                <TextView
+                    android:id="@+id/programContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="체험내용입니다." />
+            </LinearLayout>
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/main_img"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_vertical|right"
-            android:scaleType="centerCrop"
-            android:src="@drawable/loading_spinningwheel"/>
-
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
