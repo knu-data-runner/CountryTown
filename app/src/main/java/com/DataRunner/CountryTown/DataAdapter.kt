@@ -1,6 +1,5 @@
 package com.DataRunner.CountryTown
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,7 +87,24 @@ class DataAdapter(
      * RecyclerView 로 만들어지는 item 의 총 개수 반환
      * @author jungwoo
      */
+
+
+    fun getSido(i: Int): Any? {
+        return townDataList[i].sido
+    }
+    fun getTitle(i: Int): Any? {
+        return townDataList[i].title
+    }
+    fun getProgramType(i: Int): Any? {
+        return townDataList[i].programType
+    }
+    fun getProgramContent(i: Int): Any? {
+        return townDataList[i].programContent
+    }
+
     override fun getItemCount(): Int {
         return townDataList.size
     }
+
+
 }
