@@ -136,11 +136,8 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
         call_layout.setOnClickListener {call()}
-        call_button.setOnClickListener {call()}
         share_layout.setOnClickListener {share()}
-        share_button.setOnClickListener {share()}
         web_layout.setOnClickListener {web()}
-        web_button.setOnClickListener {web()}
     }
 
     private fun setWeather(wt:WeathersTemperatures) {

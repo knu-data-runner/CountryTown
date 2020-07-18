@@ -64,7 +64,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:layout_gravity="center_vertical">
-                        <Button
+                        <ImageView
                             android:id="@+id/call_button"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
@@ -85,7 +85,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:layout_gravity="center_vertical">
-                        <Button
+                        <ImageView
                             android:id="@+id/share_button"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
@@ -106,7 +106,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:layout_gravity="center_vertical">
-                        <Button
+                        <ImageView
                             android:id="@+id/web_button"
                             android:layout_width="25dp"
                             android:layout_height="25dp"

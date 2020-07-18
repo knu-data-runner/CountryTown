@@ -1,17 +1,13 @@
 package com.DataRunner.CountryTown.ui.search
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.DataRunner.CountryTown.*
@@ -25,7 +21,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var container: ViewGroup
     private lateinit var townDataList: ArrayList<TownData>
-    private lateinit var search_edt: EditText
+    private lateinit var searchEdt: EditText
     private lateinit var root: View
     private lateinit var charText: String
     private val utils = Utils()
@@ -38,8 +34,8 @@ class SearchFragment : Fragment() {
         this.root = inflater.inflate(R.layout.fragment_search, container, false)
         this.container = container!!
         townDataList = getTownDataList()
-        search_edt = root.editSearch
-        search_edt.addTextChangedListener(
+        searchEdt = root.editSearch
+        searchEdt.addTextChangedListener(
             object :TextWatcher{
                 override fun afterTextChanged(edit: Editable?) {
                 }
