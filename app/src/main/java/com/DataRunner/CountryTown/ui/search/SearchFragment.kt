@@ -55,17 +55,9 @@ class SearchFragment : Fragment() {
             if (charText != null) search(charText)
             root.swipe.isRefreshing = false
         }
-        root.main_LinearLayout.setOnClickListener {
-            linearOnClick()
-        }
         NaverMapSdk.getInstance(container!!.context).client =
             NaverMapSdk.NaverCloudPlatformClient(getSecret("naver", "CLIENT_ID"))
         return root
-    }
-
-    private fun linearOnClick() {
-        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(root.editSearch.windowToken, 0)
     }
 
     private fun search(charText: String) {

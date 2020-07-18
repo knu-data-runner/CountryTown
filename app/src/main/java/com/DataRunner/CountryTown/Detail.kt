@@ -86,7 +86,7 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
 
     @UiThread
     override fun onMapReady(naverMap: NaverMap) {
-        naverMap.cameraPosition = CameraPosition(latlan, 6.0)
+        naverMap.cameraPosition = CameraPosition(latlan, 8.0)
 
         val marker = Marker()
         marker.position = latlan

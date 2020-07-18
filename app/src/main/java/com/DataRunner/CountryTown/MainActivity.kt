@@ -1,14 +1,22 @@
 package com.DataRunner.CountryTown
 
+import android.content.Context
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private var backWait:Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,5 +36,22 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if(currentFocus != null){
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken,0)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    override fun onBackPressed() {
+        if(System.currentTimeMillis()-backWait >=2000){
+            backWait= System.currentTimeMillis()
+            Toast.makeText(this,"뒤로가기 버튼을 한 번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

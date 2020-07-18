@@ -43,7 +43,7 @@ class ArroundFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        this.root = inflater.inflate(R.layout.main_layout, container, false)
+        this.root = inflater.inflate(R.layout.fragment_arround, container, false)
         this.container = container!!
 
         if (!checkLocationServicesStatus()) {

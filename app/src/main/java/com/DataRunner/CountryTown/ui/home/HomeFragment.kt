@@ -52,6 +52,10 @@ class HomeFragment : Fragment() {
         }
         root.btn.setOnClickListener(clickListener)
 
+        root.swipe.setOnRefreshListener {
+            root.swipe.isRefreshing = false
+        }
+
         NaverMapSdk.getInstance(container!!.context).client =
             NaverMapSdk.NaverCloudPlatformClient(getSecret("naver", "CLIENT_ID"))
         return root
