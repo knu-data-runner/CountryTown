@@ -150,19 +150,19 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
 
         if (weathers=="0") {
             weatherDescription += "맑음, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_sun)
+            weather_img.setImageResource(R.drawable.ic_weather_sun)
         } else if (weathers=="1") {
             weatherDescription += "비, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_rain)
+            weather_img.setImageResource(R.drawable.ic_weather_rain)
         } else if (weathers=="2") {
             weatherDescription += "비와 눈, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_snow_rain)
+            weather_img.setImageResource(R.drawable.ic_weather_snow_rain)
         } else if (weathers=="3") {
             weatherDescription += "눈, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_snow)
+            weather_img.setImageResource(R.drawable.ic_weather_snow)
         } else if (weathers=="4") {
             weatherDescription += "소나기, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_sonagi)
+            weather_img.setImageResource(R.drawable.ic_weather_sonagi)
         }
         weather_description.text = weatherDescription
     }
