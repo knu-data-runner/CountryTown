@@ -23,7 +23,7 @@ class MoreFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_more, container, false)
 
         val infoClickListener = View.OnClickListener { view ->
-            val intent = Intent(activity, InfoActivity :: class.java)
+            val intent = Intent(activity, InfoActivity:: class.java)
             val res = utils.parsing(container!!.context, "전국")
             intent.putExtra("dataList", res)
             startActivity(intent)
@@ -31,13 +31,13 @@ class MoreFragment : Fragment() {
         root.info.setOnClickListener(infoClickListener)
 
         val licenseClickListener = View.OnClickListener { view ->
-            var intent = Intent(activity, LicenseActivity :: class.java)
+            var intent = Intent(activity, LicenseActivity:: class.java)
             startActivity(intent)
         }
         root.license.setOnClickListener(licenseClickListener)
 
         val makerClickListener = View.OnClickListener { view ->
-            var intent = Intent(activity, MakerActivity :: class.java)
+            var intent = Intent(activity, MakerActivity:: class.java)
             startActivity(intent)
         }
         root.maker.setOnClickListener(makerClickListener)

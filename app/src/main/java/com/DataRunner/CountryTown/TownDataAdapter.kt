@@ -5,17 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlin.collections.ArrayList
 
-class DataAdapter(
-    val context: Fragment,                  // HomeFragment
+class TownDataAdapter(
+    val context: Any,                   // Fragment, Context, Activity..
     val townDataList: ArrayList<TownData>,  // Data 객체 list
     val itemClick: (TownData) -> Unit)      // Data 객체 클릭시 실행되는 lambda 식
-    : RecyclerView.Adapter<DataAdapter.Holder>() {
+    : RecyclerView.Adapter<TownDataAdapter.Holder>() {
 
     /**
      * 각 Data 객체를 감싸는 Holder
@@ -32,7 +32,7 @@ class DataAdapter(
         val dataDistance = itemView.findViewById<TextView>(R.id.distance)
         val dataImg = itemView.findViewById<ImageView>(R.id.main_img)
 
-        fun bind (townData: TownData, context: Fragment) {
+        fun bind (townData: TownData, context: Any) {
             dataSido.text = townData.sido
             dataSigungu.text = townData.sigungu
             dataTitle.text = townData.title
@@ -87,7 +87,9 @@ class DataAdapter(
      * RecyclerView 로 만들어지는 item 의 총 개수 반환
      * @author jungwoo
      */
-
+    override fun getItemCount(): Int {
+        return townDataList.size
+    }
 
     fun getSido(i: Int): Any? {
         return townDataList[i].sido
@@ -101,10 +103,4 @@ class DataAdapter(
     fun getProgramContent(i: Int): Any? {
         return townDataList[i].programContent
     }
-
-    override fun getItemCount(): Int {
-        return townDataList.size
-    }
-
-
 }

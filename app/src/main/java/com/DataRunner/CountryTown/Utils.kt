@@ -1,14 +1,16 @@
 package com.DataRunner.CountryTown
 
-import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import android.location.Address
-import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
+import android.os.Bundle
 import android.os.StrictMode
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -76,6 +78,78 @@ class Utils() {
             context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
         val data = sharedPreferences.getString(key, "")
         return data
+    }
+
+    fun setAdapter(context: Context, view: RecyclerView, townDataList: ArrayList<TownData>) {
+        view.adapter = TownDataAdapter(this, townDataList) { data ->
+            val toDetailIntent = Intent(context, Detail::class.java)
+            val b = Bundle()
+            b.putParcelable("parceledData", data)
+            toDetailIntent.putExtra("bundleData", b)
+            context.startActivity(toDetailIntent)
+        }
+        view.layoutManager = LinearLayoutManager(context)
+        view.setHasFixedSize(true)
+    }
+
+    fun addDistance(
+        townDataList: ArrayList<TownData>,
+        myLoc: Location
+    ) {
+        for (townData in townDataList) {
+            val townLoc = Location("townLoc")
+            townLoc.latitude = townData.lat
+            townLoc.longitude = townData.lon
+            val distance = myLoc.distanceTo(townLoc)
+            if (distance < 10000) {
+                townData.distance = String.format("%.1f", distance/1000)
+            } else {
+                townData.distance = (distance/1000).toInt().toString()
+            }
+        }
+        townDataList.sortWith(
+            Comparator {
+                    data1, data2 -> data1.distance!!.toFloat().toInt() - data2.distance!!.toFloat().toInt()
+            }
+        )
+    }
+
+    fun search(townDataList: ArrayList<TownData>, charArray: Array<String>, searchType: String="user"): ArrayList<TownData> {
+        var searchDataList: ArrayList<TownData> = ArrayList()
+        if (searchType == "location" || charArray[0] == "전국") {
+            searchDataList = townDataList
+        } else if (searchType == "user" && charArray[0] != "") {
+            for (i in townDataList.indices) {
+                if (townDataList[i].addr.contains(charArray[0]) ||
+                    townDataList[i].title.contains(charArray[0]) ||
+                    townDataList[i].programType.contains(charArray[0]) ||
+                    townDataList[i].programContent.contains(charArray[0]))
+                    searchDataList.add(townDataList[i])
+            }
+        } else if (searchType == "recommend") {
+            for (i in townDataList.indices) {
+                for (char in charArray) {
+                    if (townDataList[i].townId == char) {
+                        searchDataList.add(townDataList[i])
+                        break
+                    }
+                }
+            }
+        } else if (searchType == "classify") {
+            for (i in townDataList.indices) {
+                for (char in charArray) {
+                    if (townDataList[i].programType.contains(char)) {
+                        searchDataList.add(townDataList[i])
+                        break
+                    }
+                }
+            }
+        }
+        return searchDataList
+    }
+
+    fun getTownDataList(context: Context, checkSido : String = "전국"): ArrayList<TownData> {
+        return parsing(context, checkSido)
     }
 
     fun parsing(context: Context, checkSido: String = "전국"): ArrayList<TownData> {
@@ -152,105 +226,5 @@ class Utils() {
             return null
         }
         return jsonString
-    }
-
-    //위도, 경도 -> GRID X좌표, Y좌표 변환
-    fun convertGpsToGrid(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
-        val TO_GRID = 0
-        val RE = 6371.00877 // 지구 반경(km)
-        val GRID = 5.0 // 격자 간격(km)
-        val SLAT1 = 30.0 // 투영 위도1(degree)
-        val SLAT2 = 60.0 // 투영 위도2(degree)
-        val OLON = 126.0 // 기준점 경도(degree)
-        val OLAT = 38.0 // 기준점 위도(degree)
-        val XO = 43.0 // 기준점 X좌표(GRID)
-        val YO = 136.0 // 기준점 Y좌표(GRID)
-
-        // LCC DFS 좌표변환 ( code : "TO_GRID"(위경도->좌표, lat_X:위도,  lng_Y:경도), "TO_GPS"(좌표->위경도,  lat_X:x, lng_Y:y) )
-        val DEGRAD = Math.PI / 180.0
-        val RADDEG = 180.0 / Math.PI
-        val re = RE / GRID
-        val slat1 = SLAT1 * DEGRAD
-        val slat2 = SLAT2 * DEGRAD
-        val olon = OLON * DEGRAD
-        val olat = OLAT * DEGRAD
-        var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5)
-        sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn)
-        var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5)
-        sf = Math.pow(sf, sn) * Math.cos(slat1) / sn
-        var ro = Math.tan(Math.PI * 0.25 + olat * 0.5)
-        ro = re * sf / Math.pow(ro, sn)
-        val rs = LatXLngY()
-        if (mode == TO_GRID) {
-            rs.lat = lat_X
-            rs.lng = lng_Y
-            var ra = Math.tan(Math.PI * 0.25 + lat_X * DEGRAD * 0.5)
-            ra = re * sf / Math.pow(ra, sn)
-            var theta = lng_Y * DEGRAD - olon
-            if (theta > Math.PI) theta -= 2.0 * Math.PI
-            if (theta < -Math.PI) theta += 2.0 * Math.PI
-            theta *= sn
-            rs.x = Math.floor(ra * Math.sin(theta) + XO + 0.5)
-            rs.y = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5)
-        } else {
-            rs.x = lat_X
-            rs.y = lng_Y
-            val xn = lat_X - XO
-            val yn = ro - lng_Y + YO
-            var ra = Math.sqrt(xn * xn + yn * yn)
-            if (sn < 0.0) {
-                ra = -ra
-            }
-            var alat = Math.pow(re * sf / ra, 1.0 / sn)
-            alat = 2.0 * Math.atan(alat) - Math.PI * 0.5
-            var theta = 0.0
-            if (Math.abs(xn) <= 0.0) {
-                theta = 0.0
-            } else {
-                if (Math.abs(yn) <= 0.0) {
-                    theta = Math.PI * 0.5
-                    if (xn < 0.0) {
-                        theta = -theta
-                    }
-                } else theta = Math.atan2(xn, yn)
-            }
-            val alon = theta / sn + olon
-            rs.lat = alat * RADDEG
-            rs.lng = alon * RADDEG
-        }
-        return rs
-    }
-
-    inner class LatXLngY {
-        var lat = 0.0
-        var lng = 0.0
-        var x = 0.0
-        var y = 0.0
-    }
-
-    // 위도, 경도 -> 주소 변환
-    fun getCurrentAddress(activity: Activity, latitude: Double, longitude: Double): String? {
-        val geocoder = Geocoder(activity, Locale.getDefault())
-        val addresses: List<Address>?
-        addresses = try {
-            geocoder.getFromLocation(
-                latitude,
-                longitude,
-                7
-            )
-        } catch (ioException: IOException) {
-            //네트워크 문제
-            Toast.makeText(activity, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show()
-            return "지오코더 서비스 사용불가"
-        } catch (illegalArgumentException: IllegalArgumentException) {
-            Toast.makeText(activity, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show()
-            return "잘못된 GPS 좌표"
-        }
-        if (addresses == null || addresses.size == 0) {
-            Toast.makeText(activity, "주소 미발견", Toast.LENGTH_LONG).show()
-            return "주소 미발견"
-        }
-        val address: Address = addresses[0]
-        return address.getAddressLine(0).toString() + "\n"
     }
 }

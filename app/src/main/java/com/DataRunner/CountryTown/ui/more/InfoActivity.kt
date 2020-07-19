@@ -1,8 +1,10 @@
-package com.DataRunner.CountryTown
+package com.DataRunner.CountryTown.ui.more
 
 import android.os.Bundle
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
+import com.DataRunner.CountryTown.R
+import com.DataRunner.CountryTown.TownData
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker

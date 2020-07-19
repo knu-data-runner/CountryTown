@@ -1,10 +1,13 @@
 package com.DataRunner.CountryTown
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +38,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class Detail : AppCompatActivity(), OnMapReadyCallback {
+    private var destinationTitle = ""
     private val utils = Utils()
+    private val gpsUtils = GpsUtils()
     private var latlan: LatLng = LatLng(0.0, 0.0)
     var TO_GRID = 0
     var TO_GPS = 1
@@ -68,6 +73,7 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         latlan = LatLng(lat, lon)
         setClickListener(number, link)
         loadImage(townId)
+        destinationTitle = sigungu.toString() +" "+ town.toString()
 
         // Map
         val fm = supportFragmentManager
@@ -78,15 +84,87 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         // Weather
-        val grid = utils.convertGpsToGrid(TO_GRID, lat, lon)
+        val grid = gpsUtils.convertGpsToGrid(TO_GRID, lat, lon)
         val gridX = grid.x.toInt()
         val gridY = grid.y.toInt()
         weather(gridX, gridY)
+
+        // Path finding
+        if (!gpsUtils.checkLocationServicesStatus(this)) {
+            gpsUtils.showDialogForLocationServiceSetting(this)
+        } else {
+            gpsUtils.checkRunTimePermission(this)
+        }
+        trip_guide_button.setOnClickListener{findPath()}
+    }
+
+    private fun findPath(){
+        val gpsTracker = GpsTracker(this)
+        val startAddress = gpsUtils
+            .getCurrentAddress(this, gpsTracker.getLat(), gpsTracker.getLon())
+            ?.substring(9)
+        val url =
+            "nmap://route/public?slat="+gpsTracker.getLat()+
+            "&slng="+gpsTracker.getLon()+
+            "&sname="+startAddress+
+            "&dlat="+latlan.latitude+
+            "&dlng="+latlan.longitude+
+            "&dname="+destinationTitle+
+            "&appname="+ BuildConfig.APPLICATION_ID
+        openUrl(url)
+    }
+
+    private fun openUrl(urlString: String){
+
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
+        intent.addCategory(Intent.CATEGORY_BROWSABLE)
+
+        val resolveInfoList: List<ResolveInfo>? = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        if (resolveInfoList == null || resolveInfoList.isEmpty()) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=com.nhn.android.nmap")
+                )
+            )
+        } else {
+            startActivity(intent)
+        }
+    }
+
+    /*
+     * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
+     */
+    override fun onRequestPermissionsResult(
+        permsRequestCode: Int,
+        permissions: Array<String?>,
+        grandResults: IntArray
+    ) {
+        gpsUtils.onRequestPermissionsResult(
+            this,
+            permsRequestCode,
+            permissions,
+            grandResults
+        )
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        gpsUtils.onActivityResult(
+            this,
+            requestCode,
+            resultCode,
+            data
+        )
     }
 
     @UiThread
     override fun onMapReady(naverMap: NaverMap) {
-        naverMap.cameraPosition = CameraPosition(latlan, 6.0)
+        naverMap.cameraPosition = CameraPosition(latlan, 8.0)
 
         val marker = Marker()
         marker.position = latlan
@@ -136,11 +214,8 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
         call_layout.setOnClickListener {call()}
-        call_button.setOnClickListener {call()}
         share_layout.setOnClickListener {share()}
-        share_button.setOnClickListener {share()}
         web_layout.setOnClickListener {web()}
-        web_button.setOnClickListener {web()}
     }
 
     private fun setWeather(wt:WeathersTemperatures) {
@@ -150,19 +225,19 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
 
         if (weathers=="0") {
             weatherDescription += "맑음, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_sun)
+            weather_img.setImageResource(R.drawable.ic_weather_sun)
         } else if (weathers=="1") {
             weatherDescription += "비, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_rain)
+            weather_img.setImageResource(R.drawable.ic_weather_rain)
         } else if (weathers=="2") {
             weatherDescription += "비와 눈, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_snow_rain)
+            weather_img.setImageResource(R.drawable.ic_weather_snow_rain)
         } else if (weathers=="3") {
             weatherDescription += "눈, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_snow)
+            weather_img.setImageResource(R.drawable.ic_weather_snow)
         } else if (weathers=="4") {
             weatherDescription += "소나기, " + temperatures + "℃ 입니다."
-            weather_img.setImageResource(R.drawable.ic_sonagi)
+            weather_img.setImageResource(R.drawable.ic_weather_sonagi)
         }
         weather_description.text = weatherDescription
     }

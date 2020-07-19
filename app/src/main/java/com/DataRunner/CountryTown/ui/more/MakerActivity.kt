@@ -1,4 +1,4 @@
-package com.DataRunner.CountryTown
+package com.DataRunner.CountryTown.ui.more
 
 import android.content.Intent
 import android.net.Uri
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.DataRunner.CountryTown.R
+import com.DataRunner.CountryTown.Utils
 import kotlinx.android.synthetic.main.maker_layout.*
 import org.json.JSONArray
 
@@ -23,16 +25,20 @@ class MakerActivity : AppCompatActivity() {
     }
 
     private fun getMakers() {
-        val madeByAdapter =  MakerAdapter(this, makerList) { maker ->
-            val intent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:") // only email apps should handle this
-                putExtra(Intent.EXTRA_EMAIL, arrayOf(maker.makerEmail))
-                putExtra(Intent.EXTRA_SUBJECT, "문의드립니다.")
+        val madeByAdapter =
+            MakerAdapter(
+                this,
+                makerList
+            ) { maker ->
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:") // only email apps should handle this
+                    putExtra(Intent.EXTRA_EMAIL, arrayOf(maker.makerEmail))
+                    putExtra(Intent.EXTRA_SUBJECT, "문의드립니다.")
+                }
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
             }
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            }
-        }
         madeBy.adapter = madeByAdapter
 
         // LayoutManager 설정. RecyclerView 에서는 필수
@@ -61,7 +67,13 @@ class MakerActivity : AppCompatActivity() {
                 makerList.add(listLine)
             }
         } catch (e: Exception) {
-            val listLine = MakerData(e.toString(), "오류", "오류", "오류", "오류")
+            val listLine = MakerData(
+                e.toString(),
+                "오류",
+                "오류",
+                "오류",
+                "오류"
+            )
             makerList.add(listLine)
         }
     }
