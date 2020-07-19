@@ -1,4 +1,4 @@
-package com.DataRunner.CountryTown
+package com.DataRunner.CountryTown.ui.more
 
 data class MakerData(
     val makerName: String,

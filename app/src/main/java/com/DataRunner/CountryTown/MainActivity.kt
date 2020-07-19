@@ -12,7 +12,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.naver.maps.map.NaverMapSdk
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        NaverMapSdk.getInstance(container!!.context).client =
+            NaverMapSdk.NaverCloudPlatformClient(getSecret("naver", "CLIENT_ID"))
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -46,12 +51,21 @@ class MainActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    override fun onBackPressed() {
-        if(System.currentTimeMillis()-backWait >=2000){
-            backWait= System.currentTimeMillis()
-            Toast.makeText(this,"뒤로가기 버튼을 한 번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show()
-        } else {
-            super.onBackPressed()
-        }
+//    override fun onBackPressed() {
+//        if(System.currentTimeMillis()-backWait >=2000){
+//            backWait= System.currentTimeMillis()
+//            Toast.makeText(this,"뒤로가기 버튼을 한 번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show()
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
+
+    private fun getSecret(provider:String, keyArg:String): String {
+        val assetManager = resources.assets
+        val inputStream= assetManager.open("secret.json")
+        val jsonString = inputStream.bufferedReader().use { it.readText() }
+        val obj = JSONObject(jsonString)
+        val secret = obj.getJSONObject(provider)
+        return secret.getString(keyArg)
     }
 }

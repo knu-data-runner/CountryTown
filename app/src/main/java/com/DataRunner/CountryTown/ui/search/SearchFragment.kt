@@ -11,10 +11,8 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.DataRunner.CountryTown.*
-import com.naver.maps.map.NaverMapSdk
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.android.synthetic.main.main_layout.view.*
-import org.json.JSONObject
 
 
 class SearchFragment : Fragment() {
@@ -51,14 +49,12 @@ class SearchFragment : Fragment() {
             if (charText != null) search(charText)
             root.swipe.isRefreshing = false
         }
-        NaverMapSdk.getInstance(container!!.context).client =
-            NaverMapSdk.NaverCloudPlatformClient(getSecret("naver", "CLIENT_ID"))
         return root
     }
 
     private fun search(charText: String) {
         var searchDataList: ArrayList<TownData> = ArrayList()
-        if(charText != null && !charText.equals("")) {
+        if(charText != null && charText != "") {
             searchDataList.clear()
             for (i in townDataList.indices) {
                 if (townDataList[i].addr.contains(charText) || townDataList[i].title.contains(charText) ||
@@ -75,28 +71,17 @@ class SearchFragment : Fragment() {
         root.result.setHasFixedSize(true)
     }
 
-    private fun getSecret(provider:String, keyArg:String): String {
-        val assetManager = resources.assets
-        val inputStream= assetManager.open("secret.json")
-        val jsonString = inputStream.bufferedReader().use { it.readText() }
-        val obj = JSONObject(jsonString)
-        val secret = obj.getJSONObject(provider)
-        return secret.getString(keyArg)
-    }
-
     private fun getTownDataList(checkSido : String = "전국"): ArrayList<TownData> {
-        val ret = utils.parsing(container!!.context, checkSido)
-        return ret
+        return utils.parsing(container!!.context, checkSido)
     }
 
-    private fun getAdapter(ret: ArrayList<TownData>): DataAdapter {
-        val dataAdapter = DataAdapter(this, ret) { data ->
+    private fun getAdapter(ret: ArrayList<TownData>): TownDataAdapter {
+        return TownDataAdapter(this, ret) { data ->
             val toDetailIntent = Intent(activity, Detail::class.java)   // activity: 부모 Activity(Context)
             val b = Bundle()
             b.putParcelable("parceledData", data)
             toDetailIntent.putExtra("bundleData", b)
             startActivity(toDetailIntent)
         }
-        return dataAdapter
     }
 }

@@ -6,16 +6,16 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.DataRunner.CountryTown.*
-import com.naver.maps.map.NaverMapSdk
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.recommend_layout
 import kotlinx.android.synthetic.main.main_layout.view.*
-import org.json.JSONObject
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
 //        })
 
         this.container = container!!
-        this.townDataList = parse()
+//        this.townDataList = parse()
 
 
         val viewPagerImages = arrayListOf(
@@ -56,6 +56,8 @@ class HomeFragment : Fragment() {
             R.drawable.ic_weather_snow
         )
         setPagerImages(viewPagerImages)
+
+        setClickListener()
 
 //        val clickListener = View.OnClickListener { view ->
 //            when (view.id) {
@@ -66,13 +68,40 @@ class HomeFragment : Fragment() {
 //        }
 //        root.btn.setOnClickListener(clickListener)
 
-        root.swipe.setOnRefreshListener {
-            root.swipe.isRefreshing = false
-        }
+//        root.swipe.setOnRefreshListener {
+//            root.swipe.isRefreshing = false
+//        }
 
-        NaverMapSdk.getInstance(container!!.context).client =
-            NaverMapSdk.NaverCloudPlatformClient(getSecret("naver", "CLIENT_ID"))
         return root
+    }
+
+    private fun setClickListener() {
+        val classifiedLayoutList = arrayOf(
+            root.harvest_layout,
+            root.makeing_layout,
+            root.living_layout,
+            root.nature_layout,
+            root.tradition_layout,
+            root.etc_layout
+        )
+        for (layout in classifiedLayoutList) {
+            layout.setOnClickListener { view ->
+                val intent = Intent(activity, ListActivity :: class.java)
+                val textView = layout.getChildAt(1) as TextView
+                intent.putExtra("query", textView.text)
+                startActivity(intent)
+            }
+        }
+        root.recommend_layout.setOnClickListener { view ->
+            val intent = Intent(activity, ListActivity :: class.java)
+            intent.putExtra("query", "추천")
+            startActivity(intent)
+        }
+        root.all_layout.setOnClickListener { view ->
+            val intent = Intent(activity, ListActivity :: class.java)
+            intent.putExtra("query", "전국")
+            startActivity(intent)
+        }
     }
 
     private fun setPagerImages(viewPagerImages: ArrayList<Int>) {
@@ -95,15 +124,6 @@ class HomeFragment : Fragment() {
                 handler.post(Update)
             }
         }, DELAY_MS, PERIOD_MS)
-    }
-
-    private fun getSecret(provider:String, keyArg:String): String {
-        val assetManager = resources.assets
-        val inputStream= assetManager.open("secret.json")
-        val jsonString = inputStream.bufferedReader().use { it.readText() }
-        val obj = JSONObject(jsonString)
-        val secret = obj.getJSONObject(provider)
-        return secret.getString(keyArg)
     }
 
 //    private fun showPopup(view: View){
@@ -150,7 +170,7 @@ class HomeFragment : Fragment() {
     private fun parse(checkSido : String = "전국"): ArrayList<TownData> {
         val ret = utils.parsing(container!!.context, checkSido)
 
-        val dataAdapter = DataAdapter(this, ret) { data ->
+        val dataAdapter = TownDataAdapter(this, ret) { data ->
             val toDetailIntent = Intent(activity, Detail::class.java)   // activity: 부모 Activity(Context)
             val b = Bundle()
             b.putParcelable("parceledData", data)
