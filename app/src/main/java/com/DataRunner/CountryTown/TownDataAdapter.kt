@@ -47,7 +47,7 @@ class TownDataAdapter(
 
             // Set image
             val storage = Firebase.storage
-            var storageRef = storage.reference
+            val storageRef = storage.reference
             storageRef.child("img/town/" + townData.townId + "_1.png").downloadUrl.addOnSuccessListener {
                 // Got the download URL for 'users/me/profile.png'
                 Glide.with(itemView)

@@ -6,14 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 <LinearLayout
     android:id="@+id/home_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingConstraints">
 <androidx.viewpager.widget.ViewPager
     android:id="@+id/view_pager"
     android:layout_width="match_parent"
@@ -26,161 +24,215 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="618"
+        android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/harvest_layout"
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="10"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/home_harvest"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="경작체험"
-                android:textSize="18sp"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/harvest_layout"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/home_harvest"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="경작체험"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/makeing_layout"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/home_making"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="만들기체험"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/living_layout"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/home_living"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="생활체험"
+                    android:textSize="18sp"/>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/makeing_layout"
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="10"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/home_making"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="만들기체험"
-                android:textSize="18sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/living_layout"
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="10"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/home_living"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="생활체험"
-                android:textSize="18sp"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/nature_layout"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/home_nature"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="자연체험"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/tradition_layout"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/home_tradition"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전통체험"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/etc_layout"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/home_etc"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기타"
+                    android:textSize="18sp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="312"
+        android:gravity="center|center_vertical">
         <LinearLayout
-            android:id="@+id/nature_layout"
             android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="10"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/home_nature"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="자연체험"
-                android:textSize="18sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/tradition_layout"
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="10"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/home_tradition"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전통체험"
-                android:textSize="18sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/etc_layout"
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="10"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/home_etc"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기타"
-                android:textSize="18sp"/>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-    <LinearLayout
-        android:id="@+id/recommend_layout"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
-        android:layout_weight="10"
-        android:gravity="center|center_vertical"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/home_recommend"/>
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="추천마을"
-            android:textSize="18sp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/all_layout"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
-        android:layout_weight="10"
-        android:gravity="center|center_vertical"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/home_all"/>
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_weight="50"
+            android:gravity="center">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                app:cardCornerRadius="20dp"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="5dp" >
+                <LinearLayout
+                    android:id="@+id/recommend_layout"
+                    android:layout_width="130dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/home_recommend"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="추천마을"
+                        android:textSize="18sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="운영진이 추천하는\n이색 마을!"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="전국일주"
-            android:textSize="18sp"/>
+            android:layout_weight="50"
+            android:gravity="center">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="24dp"
+                app:cardCornerRadius="20dp"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="5dp" >
+                <LinearLayout
+                    android:id="@+id/all_layout"
+                    android:layout_width="130dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/home_all"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="전국일주"
+                        android:textSize="18sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="전국 모든 마을\n핫플 정보!"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
 <!--            <Button-->
@@ -197,5 +249,4 @@
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="match_parent" />-->
 </LinearLayout>
-</ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

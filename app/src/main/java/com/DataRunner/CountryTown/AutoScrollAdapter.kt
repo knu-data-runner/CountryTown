@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
-class AutoScrollAdapter(context: Context, data: ArrayList<Int>) : PagerAdapter() {
+class AutoScrollAdapter(context: Context, data: ArrayList<String>) : PagerAdapter() {
     val context: Context = context
-    val data: ArrayList<Int> = data
+    val data: ArrayList<String> = data
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater =
@@ -19,8 +21,16 @@ class AutoScrollAdapter(context: Context, data: ArrayList<Int>) : PagerAdapter()
         val view: View = inflater.inflate(R.layout.image_container, null)
         val imageContainer: ImageView =
             view.findViewById<View>(R.id.image_container) as ImageView
-        Glide.with(context).load(data[position])
-            .into(imageContainer)
+
+        // Set image
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+        storageRef.child(data[position]).downloadUrl.addOnSuccessListener {
+            Glide.with(context)
+                .load(it)
+                .into(imageContainer)
+        }.addOnFailureListener {}
+
         container.addView(view)
         return view
     }

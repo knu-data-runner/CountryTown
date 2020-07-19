@@ -60,8 +60,12 @@ class Utils() {
                 var jsonArray = JSONArray()
                 for (singleTown in dataSnapshot.children) {
                     var town = JSONObject()
-                    for (property in singleTown.children) {
-                        town.put(property.key, property.value.toString())
+                    if (singleTown.hasChildren()) {
+                        for (property in singleTown.children) {
+                            town.put(property.key, property.value.toString())
+                        }
+                    } else {
+                        town.put(singleTown.key, singleTown.value.toString())
                     }
                     jsonArray.put(town)
                 }

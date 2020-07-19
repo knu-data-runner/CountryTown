@@ -13,6 +13,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         utils.saveData(this, "town")
         utils.saveData(this, "maker")
+        utils.saveData(this, "home/slide")
         super.onCreate(savedInstanceState)
         Handler().postDelayed({
             var intent = Intent(this, MainActivity::class.java)

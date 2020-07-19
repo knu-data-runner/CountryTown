@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
@@ -104,14 +103,15 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
             .getCurrentAddress(this, gpsTracker.getLat(), gpsTracker.getLon())
             ?.substring(9)
         val url =
-            "nmap://route/public?slat="+gpsTracker.getLat()+
+            "nmap://route/car?slat="+gpsTracker.getLat()+
             "&slng="+gpsTracker.getLon()+
             "&sname="+startAddress+
             "&dlat="+latlan.latitude+
             "&dlng="+latlan.longitude+
             "&dname="+destinationTitle+
-            "&appname="+ BuildConfig.APPLICATION_ID
+            "&appname="+BuildConfig.APPLICATION_ID
         openUrl(url)
+
     }
 
     private fun openUrl(urlString: String){
@@ -179,7 +179,7 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
 
         // Set image
         val storage = Firebase.storage
-        var storageRef = storage.reference
+        val storageRef = storage.reference
         storageRef.child("img/town/" + townId + "_2.png").downloadUrl.addOnSuccessListener {
             // Got the download URL for 'users/me/profile.png'
             Glide.with(this)

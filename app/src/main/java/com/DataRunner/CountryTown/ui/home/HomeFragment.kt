@@ -8,21 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.DataRunner.CountryTown.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.recommend_layout
-import kotlinx.android.synthetic.main.main_layout.view.*
+import org.json.JSONArray
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-    private lateinit var container: ViewGroup
-    private lateinit var townDataList: ArrayList<TownData>
     private lateinit var viewPager: ViewPager
     private lateinit var root: View
     private val utils = Utils()
@@ -40,21 +36,19 @@ class HomeFragment : Fragment() {
     ): View? {
         this.root = inflater.inflate(R.layout.fragment_home, container, false)
         (activity as MainActivity).supportActionBar!!.title = "컨츄리 타운"
-//        homeViewModel =
-//            ViewModelProvider(this).get(HomeViewModel::class.java)
-//        val textView: TextView = root.findViewById(R.id.text_home)
-//        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
 
-//        this.container = container!!
+        val jsonString = utils.loadData(requireContext(), "home/slide")
+        val jArray = JSONArray(jsonString)
+        var viewPagerImageUrl = arrayListOf<String>()
+        for (i in 0 until jArray.length()) {
+            val obj = jArray.getJSONObject(i)
+            val keys = obj.keys()
+            for (key in keys) {
+                viewPagerImageUrl.add(obj.getString(key))
+            }
+        }
 
-        val viewPagerImages = arrayListOf(
-            R.drawable.ic_weather_sun,
-            R.drawable.ic_weather_rain,
-            R.drawable.ic_weather_snow
-        )
-        setPagerImages(viewPagerImages)
+        setPagerImages(viewPagerImageUrl)
         setClickListener()
 
         return root
@@ -91,15 +85,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setPagerImages(viewPagerImages: ArrayList<Int>) {
+    private fun setPagerImages(viewPagerImageUrl: ArrayList<String>) {
         viewPager = root.view_pager
-        val scrollAdapter = AutoScrollAdapter(requireContext(), viewPagerImages)
+        val scrollAdapter = AutoScrollAdapter(requireContext(), viewPagerImageUrl)
         viewPager.adapter = scrollAdapter
 
         /*After setting the adapter use the timer */
         val handler = Handler()
-        val Update = Runnable {
-            if (currentPage === viewPagerImages.size) {
+        val update = Runnable {
+            if (currentPage === viewPagerImageUrl.size) {
                 currentPage = 0
             }
             viewPager.setCurrentItem(currentPage++, true)
@@ -108,28 +102,8 @@ class HomeFragment : Fragment() {
         timer!!.schedule(object : TimerTask() {
             // task to be scheduled
             override fun run() {
-                handler.post(Update)
+                handler.post(update)
             }
         }, DELAY_MS, PERIOD_MS)
     }
-
-//    private fun parse(checkSido : String = "전국"): ArrayList<TownData> {
-//        val ret = utils.parsing(container!!.context, checkSido)
-//
-//        val dataAdapter = TownDataAdapter(this, ret) { data ->
-//            val toDetailIntent = Intent(activity, Detail::class.java)   // activity: 부모 Activity(Context)
-//            val b = Bundle()
-//            b.putParcelable("parceledData", data)
-//            toDetailIntent.putExtra("bundleData", b)
-//            startActivity(toDetailIntent)
-//        }
-//        root.result.adapter = dataAdapter
-//
-//        // LayoutManager 설정. RecyclerView 에서는 필수
-//        val lm = LinearLayoutManager(activity)  // activity: 부모 Activity(Context)
-//        root.result.layoutManager = lm
-//        root.result.setHasFixedSize(true)
-//
-//        return ret
-//    }
 }
