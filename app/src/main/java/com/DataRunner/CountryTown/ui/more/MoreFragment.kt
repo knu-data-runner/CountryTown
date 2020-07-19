@@ -53,7 +53,6 @@ class MoreFragment : Fragment() {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:")
                 putExtra(Intent.EXTRA_EMAIL, arrayOf("knu.app.develop@gmail.com"))
-                putExtra(Intent.EXTRA_SUBJECT, "문의드립니다.")
             }
             startActivity(intent)
         }

@@ -179,7 +179,7 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
 
         // Set image
         val storage = Firebase.storage
-        var storageRef = storage.reference
+        val storageRef = storage.reference
         storageRef.child("img/town/" + townId + "_2.png").downloadUrl.addOnSuccessListener {
             // Got the download URL for 'users/me/profile.png'
             Glide.with(this)

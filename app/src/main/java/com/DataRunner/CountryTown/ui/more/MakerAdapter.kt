@@ -46,7 +46,7 @@ class MakerAdapter(
 
             // Set image
             val storage = Firebase.storage
-            var storageRef = storage.reference
+            val storageRef = storage.reference
             storageRef.child(data.makerImg).downloadUrl.addOnSuccessListener {
                 // Got the download URL for 'users/me/profile.png'
                 Glide.with(itemView)
