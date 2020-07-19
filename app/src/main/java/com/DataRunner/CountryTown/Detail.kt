@@ -1,6 +1,5 @@
 package com.DataRunner.CountryTown
 
-import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
@@ -12,7 +11,6 @@ import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.DataRunner.CountryTown.WeatherRecieveData.Item
 import com.DataRunner.CountryTown.WeatherRecieveData.Result
 import com.DataRunner.CountryTown.WeatherRecieveData.WeatherAPI
@@ -40,10 +38,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class Detail : AppCompatActivity(), OnMapReadyCallback {
-    private val PERMISSION_REQUEST_CODE = 100
     private var destinationTitle = ""
-    private var startlatlan: LatLng = LatLng(0.0, 0.0)
     private val utils = Utils()
+    private val gpsUtils = GpsUtils()
     private var latlan: LatLng = LatLng(0.0, 0.0)
     var TO_GRID = 0
     var TO_GPS = 1
@@ -87,50 +84,44 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         // Weather
-        val grid = utils.convertGpsToGrid(TO_GRID, lat, lon)
+        val grid = gpsUtils.convertGpsToGrid(TO_GRID, lat, lon)
         val gridX = grid.x.toInt()
         val gridY = grid.y.toInt()
         weather(gridX, gridY)
 
-        // pathfinding
+        // Path finding
         val search = findViewById<Button>(R.id.trip_guide_button)
-        search.setOnClickListener{requestPermission()}
+        if (!gpsUtils.checkLocationServicesStatus(this)) {
+            gpsUtils.showDialogForLocationServiceSetting(this)
+        } else {
+            gpsUtils.checkRunTimePermission(this)
+        }
+        findPath()
     }
 
-    private fun requestPermission(){
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED)
-        {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)){
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
-            } else{
-                ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    PERMISSION_REQUEST_CODE)
-                if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                    address()
-            }
-        } else
-            address()
+    private fun findPath(){
+        val gpsTracker = GpsTracker(this)
+        val startAddress = gpsUtils
+            .getCurrentAddress(this, gpsTracker.getLat(), gpsTracker.getLon())
+            ?.substring(9)
+        val url =
+            "nmap://route/public?slat="+gpsTracker.getLat()+
+            "&slng="+gpsTracker.getLon()+
+            "&sname="+startAddress+
+            "&dlat="+latlan.latitude+
+            "&dlng="+latlan.longitude+
+            "&dname="+destinationTitle+
+            "&appname="+ BuildConfig.APPLICATION_ID
+        openUrl(url)
     }
 
-    private fun address(){
-        var gpsTracker = GpsTracker(this)
-        var startAddress = utils.getCurrentAddress(this, gpsTracker.getLat(), gpsTracker.getLon())
-        startAddress = startAddress?.substring(9)
-        var url = "nmap://route/public?slat="+gpsTracker.getLat()+"&slng="+gpsTracker.getLon()+
-                "&sname="+startAddress+"&dlat="+latlan.latitude+"&dlng="+latlan.longitude+"&dname="+destinationTitle+
-                "&appname="+ BuildConfig.APPLICATION_ID
-        openurl(url)
-    }
-    private fun openurl(urlString: String){
-        val url = urlString
+    private fun openUrl(urlString: String){
 
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
 
-        val list: List<ResolveInfo>? = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        if (list == null || list.isEmpty()) {
+        val resolveInfoList: List<ResolveInfo>? = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        if (resolveInfoList == null || resolveInfoList.isEmpty()) {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
@@ -142,16 +133,34 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when(requestCode){
-            PERMISSION_REQUEST_CODE -> {
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    address()
-                }
-                return
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    /*
+     * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
+     */
+    override fun onRequestPermissionsResult(
+        permsRequestCode: Int,
+        permissions: Array<String?>,
+        grandResults: IntArray
+    ) {
+        gpsUtils.onRequestPermissionsResult(
+            this,
+            permsRequestCode,
+            permissions,
+            grandResults
+        )
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        gpsUtils.onActivityResult(
+            this,
+            requestCode,
+            resultCode,
+            data
+        )
     }
 
     @UiThread
