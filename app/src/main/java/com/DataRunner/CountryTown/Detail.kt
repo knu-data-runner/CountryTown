@@ -90,13 +90,12 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         weather(gridX, gridY)
 
         // Path finding
-        val search = findViewById<Button>(R.id.trip_guide_button)
         if (!gpsUtils.checkLocationServicesStatus(this)) {
             gpsUtils.showDialogForLocationServiceSetting(this)
         } else {
             gpsUtils.checkRunTimePermission(this)
         }
-        findPath()
+        trip_guide_button.setOnClickListener{findPath()}
     }
 
     private fun findPath(){
