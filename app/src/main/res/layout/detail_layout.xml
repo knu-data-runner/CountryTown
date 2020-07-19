@@ -75,7 +75,6 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="14sp"
-                            android:lineSpacingMultiplier="1.3"
                             android:text="전화" />
                     </LinearLayout>
                     <LinearLayout
@@ -96,7 +95,6 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="14sp"
-                            android:lineSpacingMultiplier="1.3"
                             android:text="공유" />
                     </LinearLayout>
                     <LinearLayout
@@ -117,7 +115,6 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="14sp"
-                            android:lineSpacingMultiplier="1.3"
                             android:text="방문" />
                     </LinearLayout>
                 </LinearLayout>
@@ -132,8 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:textSize="25sp"
-                        android:lineSpacingMultiplier="1.3"
+                        android:textSize="20sp"
                         android:text="프로그램타입" />
 
                     <TextView
@@ -141,8 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:textSize="25sp"
-                        android:lineSpacingMultiplier="1.3"
+                        android:textSize="20sp"
                         android:text="활동 내용" />
                 </LinearLayout>
                 <LinearLayout
@@ -201,7 +196,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        android:lineSpacingMultiplier="1.3"
                         android:text="강원도 춘천시 가나다라마바사아자차카타파아" />
                 </LinearLayout>
             </LinearLayout>
