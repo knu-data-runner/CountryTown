@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.DataRunner.CountryTown.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
+import kotlinx.android.synthetic.main.fragment_search.view.layoutText
 import kotlinx.android.synthetic.main.main_layout.view.*
 
 
@@ -41,6 +44,11 @@ class SearchFragment : Fragment() {
                 override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
                     charText = charSequence.toString()
                     val searchDataList = utils.search(townDataList, arrayOf(charText), "user")
+                    if (searchDataList.size != 0) {
+                        layoutText.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0)
+                    } else {
+                        layoutText.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                    }
                     utils.setAdapter(requireContext(), root.result, searchDataList)
                 }
             }

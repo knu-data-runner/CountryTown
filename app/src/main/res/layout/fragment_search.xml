@@ -5,12 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchFragment">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <EditText
             android:id="@+id/editSearch"
             android:layout_width="match_parent"
@@ -20,7 +18,19 @@
             android:singleLine="true"
             android:imeOptions="actionDone"
             android:hint="검색어를 입력하세요." />
-
+        <LinearLayout
+            android:id="@+id/layoutText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_img_02" >
+            <TextView
+                android:id="@+id/searchText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="검색결과가 없습니다." />
+        </LinearLayout>
         <include
             layout="@layout/main_layout"
             android:layout_width="match_parent"
