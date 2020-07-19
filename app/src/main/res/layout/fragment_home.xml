@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 <LinearLayout
     android:id="@+id/home_view"
     android:layout_width="match_parent"
@@ -15,17 +19,15 @@
 <androidx.viewpager.widget.ViewPager
     android:id="@+id/view_pager"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_marginBottom="20dp"/>
+    android:layout_height="200dp" />
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="30dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="618"
+        android:layout_weight="600"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,14 +38,14 @@
             <LinearLayout
                 android:id="@+id/harvest_layout"
                 android:layout_width="0dp"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/home_harvest"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -54,14 +56,14 @@
             <LinearLayout
                 android:id="@+id/makeing_layout"
                 android:layout_width="0dp"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/home_making"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,14 +74,14 @@
             <LinearLayout
                 android:id="@+id/living_layout"
                 android:layout_width="0dp"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/home_living"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -97,14 +99,14 @@
             <LinearLayout
                 android:id="@+id/nature_layout"
                 android:layout_width="0dp"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/home_nature"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,14 +117,14 @@
             <LinearLayout
                 android:id="@+id/tradition_layout"
                 android:layout_width="0dp"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/home_tradition"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -133,14 +135,14 @@
             <LinearLayout
                 android:id="@+id/etc_layout"
                 android:layout_width="0dp"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/home_etc"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -153,7 +155,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="312"
+        android:layout_weight="400"
         android:gravity="center|center_vertical">
         <LinearLayout
             android:layout_width="0dp"
@@ -235,18 +237,6 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
-<!--            <Button-->
-<!--                android:id="@+id/btn"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="55dp"-->
-<!--                android:layout_weight="25"-->
-<!--                android:background="@drawable/background_img_02"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:text="전국"-->
-<!--                android:textSize="25sp" />-->
-<!--        <include-->
-<!--            layout="@layout/main_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
 </LinearLayout>
+</ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
