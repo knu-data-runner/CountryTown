@@ -41,20 +41,21 @@ class ListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
-        townDataList = getTownDataList()
+
         val query = intent.getStringExtra("query")
-        var queryArray: Array<String>
-        var searchType = "classify"
-        when (query) {
-            "경작체험", "만들기체험", "생활체험" -> queryArray = arrayOf(query)
-            "자연체험", "전통체험" -> queryArray = arrayOf(query.substring(0,2))
-            "기타" -> queryArray = arrayOf("기타","건강")
-            "추천" -> {
-                queryArray = recommendList
-                searchType = "recommend"
-            }
-            "전국" -> queryArray = arrayOf("전국")
-            else -> queryArray = arrayOf()  // Exception situation
+        val searchType = intent.getStringExtra("searchType")
+        if (searchType=="location") {
+            townDataList = getTownDataList(query.substring(0,2))
+        } else {
+            townDataList = getTownDataList()
+        }
+        val queryArray = when (query) {
+            "경작체험", "만들기체험", "생활체험" -> arrayOf(query)
+            "자연체험", "전통체험" -> arrayOf(query.substring(0,2))
+            "기타" -> arrayOf("기타","건강")
+            "추천" -> recommendList
+            "전국" -> arrayOf("전국")
+            else -> arrayOf()  // Exception situation
         }
         supportActionBar!!.title = query
 
@@ -106,7 +107,7 @@ class ListActivity : AppCompatActivity() {
 
     private fun search(charArray: Array<String>, searchType: String="user"): ArrayList<TownData> {
         var searchDataList: ArrayList<TownData> = ArrayList()
-        if (charArray[0] == "전국") {
+        if (searchType == "location" || charArray[0] == "전국") {
             searchDataList = townDataList
         } else if (searchType == "user" && charArray[0] != "") {
             for (i in townDataList.indices) {
@@ -155,8 +156,8 @@ class ListActivity : AppCompatActivity() {
     }
 
     /*
- * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
- */
+     * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
+     */
     override fun onRequestPermissionsResult(
         permsRequestCode: Int,
         permissions: Array<String?>,

@@ -32,9 +32,10 @@
             android:label="@string/app_name"></activity>
         <activity android:name="com.DataRunner.CountryTown.ui.more.LicenseActivity" android:parentActivityName="com.DataRunner.CountryTown.MainActivity" />
         <activity android:name="com.DataRunner.CountryTown.ui.more.MakerActivity" android:parentActivityName="com.DataRunner.CountryTown.MainActivity" />
-        <activity android:name="com.DataRunner.CountryTown.Detail" android:parentActivityName="com.DataRunner.CountryTown.MainActivity" />
         <activity android:name="com.DataRunner.CountryTown.ui.more.InfoActivity" android:parentActivityName="com.DataRunner.CountryTown.MainActivity" />
+        <activity android:name="com.DataRunner.CountryTown.Detail" android:parentActivityName="com.DataRunner.CountryTown.MainActivity" />
         <activity android:name="com.DataRunner.CountryTown.ListActivity" android:parentActivityName="com.DataRunner.CountryTown.MainActivity" />
+        <activity android:name="com.DataRunner.CountryTown.SelectLocationActivity" android:parentActivityName="com.DataRunner.CountryTown.MainActivity" />
     </application>
 
 </manifest>

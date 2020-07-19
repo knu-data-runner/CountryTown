@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         this.root = inflater.inflate(R.layout.fragment_home, container, false)
+        (activity as MainActivity).supportActionBar!!.title = "컨츄리 타운"
 //        homeViewModel =
 //            ViewModelProvider(this).get(HomeViewModel::class.java)
 //        val textView: TextView = root.findViewById(R.id.text_home)
@@ -46,9 +47,7 @@ class HomeFragment : Fragment() {
 //            textView.text = it
 //        })
 
-        this.container = container!!
-//        this.townDataList = parse()
-
+//        this.container = container!!
 
         val viewPagerImages = arrayListOf(
             R.drawable.ic_weather_sun,
@@ -56,21 +55,7 @@ class HomeFragment : Fragment() {
             R.drawable.ic_weather_snow
         )
         setPagerImages(viewPagerImages)
-
         setClickListener()
-
-//        val clickListener = View.OnClickListener { view ->
-//            when (view.id) {
-//                R.id.btn -> {
-//                    showPopup(view)
-//                }
-//            }
-//        }
-//        root.btn.setOnClickListener(clickListener)
-
-//        root.swipe.setOnRefreshListener {
-//            root.swipe.isRefreshing = false
-//        }
 
         return root
     }
@@ -89,16 +74,18 @@ class HomeFragment : Fragment() {
                 val intent = Intent(activity, ListActivity :: class.java)
                 val textView = layout.getChildAt(1) as TextView
                 intent.putExtra("query", textView.text)
+                intent.putExtra("searchType", "classify")
                 startActivity(intent)
             }
         }
         root.recommend_layout.setOnClickListener { view ->
             val intent = Intent(activity, ListActivity :: class.java)
             intent.putExtra("query", "추천")
+            intent.putExtra("searchType", "recommend")
             startActivity(intent)
         }
         root.all_layout.setOnClickListener { view ->
-            val intent = Intent(activity, ListActivity :: class.java)
+            val intent = Intent(activity, SelectLocationActivity :: class.java)
             intent.putExtra("query", "전국")
             startActivity(intent)
         }
@@ -126,64 +113,23 @@ class HomeFragment : Fragment() {
         }, DELAY_MS, PERIOD_MS)
     }
 
-//    private fun showPopup(view: View){
-//        var popupMenu = PopupMenu(activity, view)   // activity: 부모 Activity(Context)
-//        var inflater = popupMenu.menuInflater
-//        inflater.inflate(R.menu.popup_menu, popupMenu.menu)
-//        townDataList.clear()
-//        popupMenu.show()
-//        popupMenu.setOnMenuItemClickListener {
-//            when(it.itemId) {
-//                R.id.all -> {
-//                    btn.text = "전국"
-//                    townDataList = parse("전국")
-//                }
-//                R.id.sudo -> {
-//                    btn.text = "수도권"
-//                    townDataList = parse("수도")
-//                }
-//                R.id.kangwon -> {
-//                    btn.text = "강원권"
-//                    townDataList = parse("강원")
-//                }
-//                R.id.chung -> {
-//                    btn.text = "충청권"
-//                    townDataList = parse("충청")
-//                }
-//                R.id.jeon -> {
-//                    btn.text = "전라권"
-//                    townDataList = parse("전라")
-//                }
-//                R.id.kyung -> {
-//                    btn.text = "경상권"
-//                    townDataList = parse("경상")
-//                }
-//                R.id.jeju -> {
-//                    btn.text = "제주도"
-//                    townDataList = parse("제주")
-//                }
-//            }
-//            true
+//    private fun parse(checkSido : String = "전국"): ArrayList<TownData> {
+//        val ret = utils.parsing(container!!.context, checkSido)
+//
+//        val dataAdapter = TownDataAdapter(this, ret) { data ->
+//            val toDetailIntent = Intent(activity, Detail::class.java)   // activity: 부모 Activity(Context)
+//            val b = Bundle()
+//            b.putParcelable("parceledData", data)
+//            toDetailIntent.putExtra("bundleData", b)
+//            startActivity(toDetailIntent)
 //        }
+//        root.result.adapter = dataAdapter
+//
+//        // LayoutManager 설정. RecyclerView 에서는 필수
+//        val lm = LinearLayoutManager(activity)  // activity: 부모 Activity(Context)
+//        root.result.layoutManager = lm
+//        root.result.setHasFixedSize(true)
+//
+//        return ret
 //    }
-
-    private fun parse(checkSido : String = "전국"): ArrayList<TownData> {
-        val ret = utils.parsing(container!!.context, checkSido)
-
-        val dataAdapter = TownDataAdapter(this, ret) { data ->
-            val toDetailIntent = Intent(activity, Detail::class.java)   // activity: 부모 Activity(Context)
-            val b = Bundle()
-            b.putParcelable("parceledData", data)
-            toDetailIntent.putExtra("bundleData", b)
-            startActivity(toDetailIntent)
-        }
-        root.result.adapter = dataAdapter
-
-        // LayoutManager 설정. RecyclerView 에서는 필수
-        val lm = LinearLayoutManager(activity)  // activity: 부모 Activity(Context)
-        root.result.layoutManager = lm
-        root.result.setHasFixedSize(true)
-
-        return ret
-    }
 }
