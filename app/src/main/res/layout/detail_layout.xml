@@ -207,6 +207,6 @@
             android:layout_gravity="center"
             android:background="@color/main_color"
             android:textStyle="bold"
-            android:text="길 안내 시작" />
+            android:text="네이버 지도로 길 안내 시작" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
