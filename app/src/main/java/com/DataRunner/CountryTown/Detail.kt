@@ -62,17 +62,24 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         val number = parceledData?.number
         val link = parceledData?.link
         val townId = parceledData?.townId
+        var detailContent = parceledData.detailContent
 
         // Set variables and processing
         title_sigungu.text = sigungu
         title_town.text = town
-        program_type.text = type
-        program_content.text = content
+        if (detailContent.isNotEmpty()) {
+            program_type.text = ""
+            program_content.text = detailContent
+        }
+        else {
+            program_type.text = type
+            program_content.text = content
+        }
         addr.text = address
         latlan = LatLng(lat, lon)
         setClickListener(number, link)
         loadImage(townId)
-        destinationTitle = sigungu.toString() +" "+ town.toString()
+        destinationTitle = sigungu.toString() + " " + town.toString()
 
         // Map
         val fm = supportFragmentManager
@@ -94,32 +101,33 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         } else {
             gpsUtils.checkRunTimePermission(this)
         }
-        trip_guide_button.setOnClickListener{findPath()}
+        trip_guide_button.setOnClickListener { findPath() }
     }
 
-    private fun findPath(){
+    private fun findPath() {
         val gpsTracker = GpsTracker(this)
         val startAddress = gpsUtils
             .getCurrentAddress(this, gpsTracker.getLat(), gpsTracker.getLon())
             ?.substring(9)
         val url =
-            "nmap://route/car?slat="+gpsTracker.getLat()+
-            "&slng="+gpsTracker.getLon()+
-            "&sname="+startAddress+
-            "&dlat="+latlan.latitude+
-            "&dlng="+latlan.longitude+
-            "&dname="+destinationTitle+
-            "&appname="+BuildConfig.APPLICATION_ID
+            "nmap://route/car?slat=" + gpsTracker.getLat() +
+                    "&slng=" + gpsTracker.getLon() +
+                    "&sname=" + startAddress +
+                    "&dlat=" + latlan.latitude +
+                    "&dlng=" + latlan.longitude +
+                    "&dname=" + destinationTitle +
+                    "&appname=" + BuildConfig.APPLICATION_ID
         openUrl(url)
 
     }
 
-    private fun openUrl(urlString: String){
+    private fun openUrl(urlString: String) {
 
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
 
-        val resolveInfoList: List<ResolveInfo>? = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        val resolveInfoList: List<ResolveInfo>? =
+            packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         if (resolveInfoList == null || resolveInfoList.isEmpty()) {
             startActivity(
                 Intent(
@@ -171,7 +179,7 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         marker.map = naverMap
     }
 
-    private fun loadImage(townId:String) {
+    private fun loadImage(townId: String) {
         // Set loading image
         Glide.with(this)
             .load(R.drawable.loading_spinningwheel)
@@ -195,7 +203,7 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun setClickListener(number:String, link:String) {
+    private fun setClickListener(number: String, link: String) {
         val call = fun() {
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:" + number)
@@ -213,29 +221,29 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
             intent.data = Uri.parse(link)
             startActivity(intent)
         }
-        call_layout.setOnClickListener {call()}
-        share_layout.setOnClickListener {share()}
-        web_layout.setOnClickListener {web()}
+        call_layout.setOnClickListener { call() }
+        share_layout.setOnClickListener { share() }
+        web_layout.setOnClickListener { web() }
     }
 
-    private fun setWeather(wt:WeathersTemperatures) {
+    private fun setWeather(wt: WeathersTemperatures) {
         val weathers = wt.weathers // 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
         val temperatures = wt.temperatures
         var weatherDescription = "이 마을의 현재 날씨는\n"
 
-        if (weathers=="0") {
+        if (weathers == "0") {
             weatherDescription += "맑음, " + temperatures + "℃ 입니다."
             weather_img.setImageResource(R.drawable.ic_weather_sun)
-        } else if (weathers=="1") {
+        } else if (weathers == "1") {
             weatherDescription += "비, " + temperatures + "℃ 입니다."
             weather_img.setImageResource(R.drawable.ic_weather_rain)
-        } else if (weathers=="2") {
+        } else if (weathers == "2") {
             weatherDescription += "비와 눈, " + temperatures + "℃ 입니다."
             weather_img.setImageResource(R.drawable.ic_weather_snow_rain)
-        } else if (weathers=="3") {
+        } else if (weathers == "3") {
             weatherDescription += "눈, " + temperatures + "℃ 입니다."
             weather_img.setImageResource(R.drawable.ic_weather_snow)
-        } else if (weathers=="4") {
+        } else if (weathers == "4") {
             weatherDescription += "소나기, " + temperatures + "℃ 입니다."
             weather_img.setImageResource(R.drawable.ic_weather_sonagi)
         }
@@ -280,18 +288,19 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         )
 
         val wt = WeathersTemperatures()
-        callApi.enqueue(object: Callback<Result> {
+        callApi.enqueue(object : Callback<Result> {
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
                 val itemList: List<Item> = response.body()!!.response!!.body!!.items!!.item!!
                 for (item in itemList) {
                     val categorys = item.category
-                    if(categorys.equals("PTY"))
+                    if (categorys.equals("PTY"))
                         wt.weathers = item.obsrValue.toString()
-                    if(categorys.equals("T1H"))
+                    if (categorys.equals("T1H"))
                         wt.temperatures = item.obsrValue.toString()
                 }
                 setWeather(wt)
             }
+
             override fun onFailure(call: Call<Result>, t: Throwable) {
                 Log.d("Call Failed", t.toString())
                 setWeather(wt)
@@ -304,9 +313,9 @@ class Detail : AppCompatActivity(), OnMapReadyCallback {
         var temperatures = "29"
     }
 
-    private fun getSecret(provider:String, keyArg:String): String {
+    private fun getSecret(provider: String, keyArg: String): String {
         val assetManager = resources.assets
-        val inputStream= assetManager.open("secret.json")
+        val inputStream = assetManager.open("secret.json")
         val jsonString = inputStream.bufferedReader().use { it.readText() }
         val obj = JSONObject(jsonString)
         val secret = obj.getJSONObject(provider)

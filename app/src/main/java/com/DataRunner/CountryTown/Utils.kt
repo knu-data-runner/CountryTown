@@ -192,8 +192,8 @@ class Utils() {
                         obj.getDouble("위도"),
                         obj.getDouble("경도"),
                         obj.getString("데이터기준일자"),
-                        obj.getString("일련번호"),
-                        null
+                        obj.getString("일련번호"),null,
+                        obj.getString("추가내용")
                     )
                     ret.add(listLine)
                 }
@@ -212,6 +212,7 @@ class Utils() {
                 "오류",
                 0.0,
                 0.0,
+                "오류",
                 "오류",
                 "오류",
                 "오류"
