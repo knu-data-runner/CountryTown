@@ -19,5 +19,6 @@ data class TownData(
     val lon: Double,
     val dataVersion: String,
     val townId: String,
-    var distance: String?
+    var distance: String?,
+    var detailContent: String
 ) : Parcelable
