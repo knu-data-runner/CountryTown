@@ -25,15 +25,11 @@ https://play.google.com/store/apps/details?id=com.DataRunner.CountryTown
 
 <br>
 
-<!-- ![Info](https://user-images.githubusercontent.com/41278416/114273431-f26b9800-9a54-11eb-9aab-c284efb69e40.png) {: width="100" height="100"}
-![홈](https://user-images.githubusercontent.com/41278416/114273442-feeff080-9a54-11eb-81da-5b4193e6a794.png) {: width="100" height="100"}
-![지역 선택](https://user-images.githubusercontent.com/41278416/114273452-08795880-9a55-11eb-90ce-9037ab5496b4.png) {: width="100" height="100"}
-![검색](https://user-images.githubusercontent.com/41278416/114273455-0e6f3980-9a55-11eb-8932-79c0e5211112.png) {: width="100" height="100"}
-![내 주변](https://user-images.githubusercontent.com/41278416/114273463-14651a80-9a55-11eb-992f-1f729a278fc9.png) {: width="100" height="100"} -->
-
-<img src="https://user-images.githubusercontent.com/41278416/114273431-f26b9800-9a54-11eb-9aab-c284efb69e40.png" width="250">
-<img src="https://user-images.githubusercontent.com/41278416/114273442-feeff080-9a54-11eb-81da-5b4193e6a794.png" width="250">
-<img src="https://user-images.githubusercontent.com/41278416/114273463-14651a80-9a55-11eb-992f-1f729a278fc9.png" width="250">
-<img src="https://user-images.githubusercontent.com/41278416/114273455-0e6f3980-9a55-11eb-8932-79c0e5211112.png" width="250">
-<img src="https://user-images.githubusercontent.com/41278416/114273724-39a65880-9a56-11eb-9533-f65a1de3dc0d.png" width="250">
-<img src="https://user-images.githubusercontent.com/41278416/114273732-3f9c3980-9a56-11eb-9ad6-a0fb0cb1aa41.png" width="250">
+<div style="float: left;">
+  <img src="https://user-images.githubusercontent.com/41278416/114273431-f26b9800-9a54-11eb-9aab-c284efb69e40.png" width="250" style="margin:10px;">
+  <img src="https://user-images.githubusercontent.com/41278416/114273442-feeff080-9a54-11eb-81da-5b4193e6a794.png" width="250" style="margin:10px;">
+  <img src="https://user-images.githubusercontent.com/41278416/114274302-b4707300-9a58-11eb-9f16-5386fb310d11.png" width="250" style="margin:10px;">
+  <img src="https://user-images.githubusercontent.com/41278416/114273455-0e6f3980-9a55-11eb-8932-79c0e5211112.png" width="250" style="margin:10px;">
+  <img src="https://user-images.githubusercontent.com/41278416/114273724-39a65880-9a56-11eb-9533-f65a1de3dc0d.png" width="250" style="margin:10px;">
+  <img src="https://user-images.githubusercontent.com/41278416/114273732-3f9c3980-9a56-11eb-9ad6-a0fb0cb1aa41.png" width="250" style="margin:10px;">
+</div>
